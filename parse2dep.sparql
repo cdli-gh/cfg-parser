@@ -1,0 +1,327 @@
+PREFIX powla: <http://purl.org/powla/powla.owl#>
+PREFIX conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX terms: <http://purl.org/acoli/open-ie/>
+PREFIX x: <http://purl.org/acoli/conll-rdf/xml#>
+PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+#
+# grammar-driven head assignment
+#
+
+# non-branching nodes get terms:HEAD
+# AGENT	->	BALA_PERSON
+# AGENT	->	MU_PN_SZE3
+# AGENT	->	PERSON_maszkim
+# AGENT	->	PERSON
+# AGENT	->	GIRI3_PERSON
+# AGENT	->	MUDU_PERSON
+# COPY	->	GABARI 
+# DATE	->	DAY 
+# DATE	->	MONTH
+INSERT {
+	?a terms:HEAD ?b
+} WHERE {
+	?b powla:hasParent ?a.
+	MINUS { ?a ^powla:hasParent ?b, ?c FILTER(?b!=?c)}
+};
+
+# numbers dependents of binary nodes are never head
+# NUMBER_PRODUCT	->	NUMBERS PRODUCT 
+# NUMBER_PRODUCT	->	NUMBERS UNIT
+INSERT {
+	?phrase terms:HEAD ?nonNumber
+} WHERE {
+	?number a conll:NUMBERS.
+	?number powla:hasParent ?phrase.
+	MINUS { ?phrase terms:HEAD [] }
+	?nonNumber powla:hasParent ?phrase.
+	FILTER(?nonNumber!=?number)
+	MINUS { ?nonNumber a conll:NUMBERS }
+	MINUS { ?phrase (^powla:hasParent) ?a, ?b, ?c. FILTER(?a != ?b) FILTER(?a != ?c) FILTER(?b != ?c) }
+};
+
+# head of NUMBER_PRODUCT is the first product 
+# NUMBER_PRODUCT	->	NUMBERS UNIT PRODUCT 
+# NUMBER_PRODUCT	->	NUMBERS PRODUCT UNIT
+INSERT {
+	?phrase terms:HEAD ?product
+} WHERE {
+	?product a conll:PRODUCT; powla:hasParent ?phrase.
+	?phrase a conll:NUMBER_PRODUCT.
+	MINUS { ?phrase terms:HEAD [] }
+	MINUS { ?tmp0 a conll:PRODUCT; (^powla:hasParent)*/nif:nextWord+/powla:hasParent* ?product; powla:hasParent/^powla:hasParent ?product.
+	?product a conll:PRODUCT.
+	FILTER(?tmp0!=?product) }
+};
+	
+# head is the verb
+# DATED_TRANSACTION	->	TRANSACTION [RECEIVED]
+# TRANSACTION	->	NUMBER_PRODUCT_LIST DEAD LOCATION PERSON [RECEIVED]
+# TRANSACTION	->	NUMBER_PRODUCT_LIST DEAD DATE LOCATION PERSON [RECEIVED]
+INSERT {
+	?a terms:HEAD ?b
+} WHERE {
+	?b a conll:RECEIVED; powla:hasParent ?a.
+	?a a ?A.
+	FILTER(?A in (conll:DATED_TRANSACTION, conll:TRANSACTION))
+	MINUS { ?a terms:HEAD [] }
+	MINUS { ?c a conll:RECEIVED; powla:hasParent ?a; (^powla:hasParent)+/nif:nextWord+/powla:hasParent+ ?b
+		FILTER(?c!=?b)
+	}
+};
+
+# head is the final verb of a clause
+# CLAUSE -> ... [VERB] # inserted in SPARQL postprocessing
+INSERT {
+	?clause terms:HEAD ?verb
+} WHERE {
+	?clause a conll:CLAUSE.
+	?verb a conll:VERB; powla:hasParent ?clause.
+	MINUS { ?clause terms:HEAD [] }
+	MINUS { ?verb powla:next [] }
+};
+
+# head is the first person
+# ACCOUNTING	->	ZIGA PERSON
+# BALA_PERSON	->	BALA PERSON
+# GIRI3_PERSON	->	GIRI3 PERSON
+# KISZIB_PERSON	->	KISZIB PERSON
+# MUDU_PERSON	->	MUDU PERSON 
+# COPY	->	GABARI KISZIBA PERSON
+INSERT {
+	?a terms:HEAD ?b
+} WHERE {
+	?b a conll:PERSON; powla:hasParent ?a.
+	?a a ?A.
+	FILTER(?A in (conll:ACCOUNTING, conll:BALA_PERSON, conll:GIRI3_PERSON, conll:KISZIB_PERSON, conll:MUDU_PERSON, conll:COPY))
+	MINUS { ?a terms:HEAD [] }
+	MINUS { ?c a conll:PERSON; powla:hasParent ?a; (^powla:hasParent)+/nif:nextWord+/powla:hasParent+ ?b
+		FILTER(?c!=?b)
+	}
+};
+
+# head is the first entity of its kind
+# MUDU_PERSON	->	MUDU GOD
+# MONTH	->	ITI MONTH_NAME
+INSERT {
+	?a terms:HEAD ?b
+} WHERE {
+	?b a ?B; powla:hasParent ?a.
+	?a a ?A.
+	VALUES (?A ?B) {
+		( conll:MUDU_PERSON conll:GOD  )
+		( conll:MONTH conll:MONTH_NAME  )
+	}
+	MINUS { ?a terms:HEAD [] }
+	MINUS { ?c a ?A; powla:hasParent ?a; (^powla:hasParent)+/nif:nextWord+/powla:hasParent+ ?b
+		FILTER(?c!=?b)
+	}
+};
+
+
+
+# head is the first child (= default)
+# COPY	->	GABARI KISZIB_PERSON 
+# DATE	->	DAY MONTH YEAR 
+# DATE	->	MONTH YEAR 
+# DATE	->	DAY MONTH 
+# DATED_TRANSACTION	->	[TRANSACTION] DATE
+# DAY	->	U4 NUMBERS
+# EPILOG	->	TRANSACTION SUMMARY 
+# EPILOG	->	DATED_TRANSACTION SUMMARY 
+# EPILOG	->	TRANSACTION NUMBERS 
+# EPILOG	->	DATED_TRANSACTION NUMBERS
+# FRAG	->	UNKNOWN 
+# FRAG	->	FRAG UNKNOWN
+# GOD	->	GOD CITY 
+# GOD	->	GOD NATIONALITY
+# JOB	->	JOB GOD 
+# JOB	->	JOB CITY
+# LOCATION	->	KI CITY
+# NUMBER_PRODUCT_LIST	->	NUMBER_PRODUCT_LIST NUMBER_PRODUCT
+# NUMBERS	->	NUMBERS NUMBER
+# NUMBERS	->	NUMBERS MINUS NUMBER
+# PERSON	->	PN JOB 
+# PERSON	->	PERSON NATIONALITY 
+# PERSON	->	PERSON FILIATION PERSON
+# PERSON	->	PERSON CONJ PERSON
+# PERSON_maszkim	->	PERSON MASZKIM
+# PRODUCT	->	PRODUCT PRODUCT_PARAM
+# PRODUCT	->	PRODUCT PRODUCT_NAME
+# PURPOSE	->	NOUN GOD 
+# PURPOSE	->	NOUN GOD CITY
+# PURPOSE	->	GOD CITY
+# SUMMARY	->	SUMMARY SZU_NIGIN 
+# SUMMARY	->	SUMMARY COPY 
+# SUMMARY	->	SUMMARY DATE
+# SZU_NIGIN	->	SZUNIGIN NUMBER_PRODUCT_LIST
+# TRANSACTION	->	NUMBER_PRODUCT_LIST AGENT
+# TRANSACTION	->	TRANSACTION AGENT
+# TRANSACTION	->	TRANSACTION LOCATION
+# TRANSACTION	->	NUMBER_PRODUCT_LIST PURPOSE
+# TRANSACTION	->	TRANSACTION ACCOUNTING
+# MU_PERSON_sze3	->	MU PN_SZE3
+# for implementation, see below
+
+
+#
+# default head assignment
+#
+
+# naive head assessment: first element is head
+INSERT {
+	?a terms:HEAD ?b
+} WHERE {
+	?b powla:hasParent ?a.
+	MINUS { ?a terms:HEAD [] }
+	MINUS { [] powla:next ?b }
+};
+
+# naive label assessment: dependency is the label of the phrase dominated by the head
+INSERT {
+	?a conll:EDGE ?cat
+} WHERE {
+	?a a nif:Word.
+	MINUS {?a conll:EGDE [] }
+	?a (^terms:HEAD)* ?A.
+	MINUS { [ rdf:value [] ] terms:HEAD+ ?A }
+	?A rdf:value ?cat.
+};
+
+# create HEAD properties
+DELETE {
+	?a conll:HEAD ?s
+} INSERT {
+	?a conll:HEAD ?b
+} WHERE {
+	?a a nif:Word.
+	?a (^terms:HEAD)* ?A.
+	MINUS { [] terms:HEAD ?A }
+	?a conll:HEAD ?s.
+	?s a nif:Sentence.
+	?A powla:hasParent ?B.
+	?B terms:HEAD* ?b.
+	?b a nif:Word
+};
+
+#
+# postprocessing
+#
+
+# propagate final date to first transaction in a chain of transactions
+DELETE {
+	?date conll:HEAD ?d.
+} INSERT {
+	?date conll:HEAD ?t
+} WHERE {
+	?date conll:EDGE "DATE"; conll:HEAD ?d.
+	?d conll:EDGE "DATED_TRANSACTION".
+	?d conll:HEAD+ ?t.
+	?t conll:EDGE "TRANSACTION".
+	MINUS { ?t conll:HEAD/conll:EDGE "TRANSACTION" }
+	MINUS { ?d conll:HEAD+ ?tmp2. ?tmp2 conll:HEAD+ ?t. MINUS { ?tmp2 conll:EDGE "TRANSACTION" }}
+	MINUS { ?date nif:nextWord+ ?tmp. ?tmp conll:HEAD* ?d. MINUS { ?tmp conll:HEAD* ?date }}
+};
+	
+# DATED_TRANSACTION -> TRANSACTION
+DELETE {
+	?d conll:EDGE "DATED_TRANSACTION"
+} INSERT {
+	?d conll:EDGE "TRANSACTION"
+} WHERE {
+	?d conll:EDGE "DATED_TRANSACTION"
+};
+
+# NUMBERS -> [ UNIT -> head ] ] => NUMBERS -> UNIT -> head
+DELETE {
+	?num conll:HEAD ?h.
+} INSERT {
+	?num conll:HEAD ?unit.
+} WHERE {
+	?num conll:EDGE "NUMBERS"; conll:HEAD ?h.
+	?unit conll:EDGE "UNIT"; conll:HEAD ?h.
+	?num nif:nextWord+ ?unit.
+	?unit nif:nextWord ?h.
+};	
+
+#
+# map EDGE labels from semantic roles to CDLI labels
+#
+
+# clausal arguments (in year names only -- we have no idea how to disambiguate this, must be done via morphology
+DELETE {
+	?d conll:EDGE ?old
+} INSERT { 
+	?d conll:EDGE "dep"
+} WHERE {
+	{
+		?d conll:HEAD/conll:EDGE "CLAUSE".
+		?d conll:EDGE ?old.
+	}
+};
+
+# independent of position relative to head
+DELETE {
+	?d conll:EDGE ?old
+} INSERT { 
+	?d conll:EDGE ?new
+} WHERE { 
+	?d conll:EDGE ?old.
+      VALUES (?old ?new) {
+            ( "NUMBERS" "nummod" )
+			( "DATE" "date" )
+			( "YEAR" "LOC" )
+			( "MONTH" "LOC" )
+			( "AGENT" "agent" )
+			( "SUMMARY" "total")
+			( "GAP" "dep")
+		}
+};
+
+# premodifiers
+DELETE {
+	?d conll:EDGE ?old
+} INSERT { 
+	?d conll:EDGE ?new
+} WHERE { 
+	?d conll:EDGE ?old.
+	?d conll:HEAD/(^nif:nextWord)+ ?d
+      VALUES (?old ?new) {
+            ( "UNIT" "nmod" )
+			( "ITI" "nmod" )
+		}
+};
+
+# postmodifiers
+DELETE {
+	?d conll:EDGE ?old
+} INSERT { 
+	?d conll:EDGE ?new
+} WHERE { 
+	?d conll:EDGE ?old.
+	?d conll:HEAD/(nif:nextWord)+ ?d
+      VALUES (?old ?new) {
+            ( "UNIT" "appos" )
+			( "PRODUCT_NAME" "appos" )
+			( "CLAUSE" "acl" )			# to be confirmed, for year names
+			( "NUMBER_PRODUCT" "list") 	# for non-first NUMBER_PRODUCTS only; indeed, the first element should be a NUMBER_PRODUCT_LIST
+			( "TRANSACTION" "parataxis") # not for the first (= root node, no head)
+			( "NUMBER" "compound")	# only if head is number, otherwise, this would be NUMBERS
+			( "MINUS" "compound") 	# within numeral phrases, actually sentential
+			( "JOB" "appos" )
+			( "CITY" "GEN" )		# also LOC ?
+			( "PRODUCT_PARAM" "appos")
+		}
+};
+
+# top edge is root
+DELETE {
+	?d conll:EDGE ?old
+} INSERT {
+	?d conll:EDGE "root"
+} WHERE {
+	?d conll:EDGE ?öld.
+	MINUS { ?d conll:HEAD/a nif:Word }
+};

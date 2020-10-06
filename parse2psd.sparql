@@ -1,0 +1,53 @@
+PREFIX powla: <http://purl.org/powla/powla.owl#>
+PREFIX conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX terms: <http://purl.org/acoli/open-ie/>
+PREFIX x: <http://purl.org/acoli/conll-rdf/xml#>
+PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# create PTB-style representation from powla:Nodes
+
+INSERT {
+	?w conll:PSD ?psd
+} WHERE {
+	OPTIONAL {
+		{ SELECT ?w (GROUP_CONCAT(?open; separator=" ") AS ?pre)
+		  WHERE {
+			{ SELECT ?w ?node (COUNT(distinct(?tmp)) as ?depth)
+			  WHERE {
+				?w a nif:Word.
+				?w powla:hasParent+ ?node.
+				?node powla:hasParent* ?tmp
+			  } GROUP BY ?w ?node ORDER BY ASC(?depth)
+			}
+			MINUS { ?node (^powla:hasParent)+/nif:nextWord ?w }
+			OPTIONAL { ?node rdf:value ?label }
+			BIND(if(bound(?label),
+				    concat('(',?label), 
+					'(') AS ?open)
+		  } GROUP BY ?w
+		}
+	}
+	OPTIONAL {
+		{ SELECT ?w (GROUP_CONCAT(?close; separator="") AS ?post)
+		  WHERE {
+			{ SELECT ?w ?node (COUNT(distinct(?tmp)) as ?depth)
+			  WHERE {
+				?w a nif:Word.
+				?w powla:hasParent+ ?node.
+				?node powla:hasParent* ?tmp
+			  } GROUP BY ?w ?node ORDER BY ASC(?depth)
+			}
+			MINUS { ?node (^powla:hasParent)+/^nif:nextWord ?w }
+			BIND(')' AS ?close)
+		  } GROUP BY ?w
+		}
+	}
+
+	bind(if(bound(?indent),?indent,"") AS ?pfx)
+	
+	BIND(IF(BOUND(?pre), if(bound(?post), concat(?pfx, ?pre,' *',?post), concat(?pfx, ?pre, ' *')),
+					if(bound(?post), concat(?pfx, '*',?post), '*')) AS ?psd)
+}
+	

@@ -1,0 +1,157 @@
+PREFIX powla: <http://purl.org/powla/powla.owl#>
+PREFIX conll: <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX terms: <http://purl.org/acoli/open-ie/>
+PREFIX x: <http://purl.org/acoli/conll-rdf/xml#>
+PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# replace all powla:Nodes with an rdf:value by the corresponding conll-type
+DELETE {
+	?n a powla:Node, conll:PARSE
+} INSERT {
+	?n a ?conllNode.
+	?conllNode rdfs:subClassOf powla:Node
+} WHERE {
+	?n a powla:Node; rdf:value ?label.
+	BIND(URI(concat("http://ufal.mff.cuni.cz/conll2009-st/task-description.html#",?label)) as ?conllNode)
+};
+
+# connect all parses into a single "ROOT" node
+INSERT {
+	?root a conll:ROOT.
+	?dep powla:hasParent ?root
+} WHERE {
+	?w powla:hasParent+ ?dep.
+	MINUS { ?dep powla:hasParent [] }
+	?w conll:HEAD ?sentence.
+	BIND(uri(concat(str(?sentence),'_root')) as ?root)
+};
+
+# restore POWLA next
+INSERT {
+	?a powla:next ?b
+} WHERE {
+	?a powla:hasParent ?c; (^powla:hasParent)*/nif:nextWord/powla:hasParent+ ?b.
+	?b powla:hasParent ?c.
+	FILTER(?a!=?b)
+};
+
+# NUMBER_PRODUCT_LIST[1..n] (TRANSACTION (NUMBER_PRODUCT_LIST ...) ...) => (TRANSACTION (NUMBER_PRODUCT_LIST[merged] ...) ...)
+# NUMBER_PRODUCT_LIST[1..n] DATED_TRANSACTION(TRANSACTION (NUMBER_PRODUCT_LIST ... => DATED_TRANSACTION(TRANSACTION (NUMBER_PRODUCT_LIST[merged] ...
+DELETE {
+	?np powla:hasParent ?npl.
+	?last powla:next ?npl.
+	?npl powla:next ?next.
+	?npl rdf:value "NUMBER_PRODUCT_LIST"; a conll:NUMBER_PRODUCT_LIST; powla:hasParent ?root
+} INSERT {
+	?np powla:hasParent ?tnpl.
+} WHERE {
+	?npl a conll:NUMBER_PRODUCT_LIST; powla:hasParent ?root.
+	?root a conll:ROOT.
+	?np powla:hasParent ?npl.
+	?npl powla:next+ ?t.
+	?t a ?T.
+	FILTER(?T in (conll:TRANSACTION, conll:DATED_TRANSACTION))
+	MINUS { ?npl powla:next+ ?tmp. ?tmp powla:next+ ?t.
+			MINUS { ?tmp a conll:NUMBER_PRODUCT_LIST }
+	}
+	?tnpl a conll:NUMBER_PRODUCT_LIST; powla:head+ ?t.
+	MINUS { ?first nif:nextWord/powla:hasParent+ ?t.
+			MINUS { ?first powla:hasParent+ ?tnpl }
+	}
+};	
+
+# flatten DATED_TRANSACTION [ TRANSACTION ... ] => DATED_TRANSACTION|TRANSACTION ...
+# => DATED_TRANSACTION in transaction chain
+DELETE {
+	?x powla:hasParent ?t.
+	?t a conll:TRANSACTION.
+	?t powla:hasParent ?d.
+	?last powla:next ?t.
+	?t powla:next ?next.
+} INSERT {
+	?x powla:hasParent ?d.
+	?d a conll:TRANSACTION.
+} WHERE {
+	?t a conll:TRANSACTION.
+	?t powla:hasParent ?d.
+	?d a conll:DATED_TRANSACTION.
+	?x powla:hasParent ?t.
+	OPTIONAL { ?last powla:next ?t }
+	OPTIONAL { ?t powla:next ?next }
+};
+
+# just renamed, not deleted
+INSERT {
+	?t1 a conll:TRANSACTION
+} WHERE	{
+	?t1 a conll:DATED_TRANSACTION
+};
+
+# restructure parse (side-effects: remove some next)
+# TRANSACTION TRANSACTION => TRANSACTION [TRANSACTION]
+DELETE {
+	?t2 powla:hasParent ?d.
+	?t1 powla:next ?t2.
+	?t2 powla:next ?next.
+} INSERT {
+	?t2 powla:hasParent ?t1
+} WHERE {
+	?t1 a conll:TRANSACTION; powla:next ?t2.
+	?t2 a conll:TRANSACTION.
+	MINUS { ?t1 a conll:DATED_TRANSACTION } # we assume that a sequence of transactions is concluded with a DATE
+	?t2 powla:hasParent ?d.
+	?d a conll:ROOT.
+	OPTIONAL { ?t2 powla:next ?next } 
+}; 
+
+# unmerge DATED_TRANSACTION and TRANSACTION
+# TODO: and break transaction chain after dated transaction (note that dated transaction have been flattened here)
+DELETE {
+	?d a conll:TRANSACTION.
+	?t powla:hasParent ?d.
+	?last powla:next ?t
+} iNSERT {
+	?t powla:hasParent ?root.
+} WHERE {
+	?d a conll:DATED_TRANSACTION.
+	OPTIONAL { ?t powla:hasParent ?d; a conll:TRANSACTION. ?t powla:hasParent+ ?root. MINUS { ?root powla:hasParent [] } 
+		OPTIONAL { ?last powla:next ?t }
+	}
+};
+
+# restructure year names
+DELETE {
+	?arg powla:hasParent ?year.
+	?verb powla:hasParent ?year.
+} INSERT {
+	?verb powla:hasParent ?clause.
+	?arg powla:hasParent ?clause.
+	?clause a conll:CLAUSE; rdf:value "CLAUSE"; powla:hasParent ?year.
+} WHERE {
+	?year a conll:YEAR.
+	?verb powla:hasParent ?year; a conll:VERB.	# final(!) verb becomes clausal head
+	MINUS { ?verb powla:next [] }
+	?arg powla:hasParent ?year.
+	MINUS { ?arg a conll:MU }
+	BIND(uri(concat(str(?verb),'_clause')) AS ?clause)
+};
+
+# remove POWLA next (to restore it)
+DELETE {
+	?a powla:next ?b
+} WHERE {
+	?a powla:next ?b
+};
+
+# restore POWLA next
+
+INSERT {
+	?a powla:next ?b
+} WHERE {
+	?a powla:hasParent ?c; (^powla:hasParent)*/nif:nextWord/powla:hasParent+ ?b.
+	?b powla:hasParent ?c.
+	FILTER(?a!=?b)
+};
+
