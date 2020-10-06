@@ -322,7 +322,7 @@ DELETE {
 } INSERT {
 	?d conll:EDGE "root"
 } WHERE {
-	?d conll:EDGE ?öld.
+	?d conll:EDGE ?old.
 	MINUS { ?d conll:HEAD/a nif:Word }
 };
 
