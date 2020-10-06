@@ -2,15 +2,21 @@
 PYTHON=python3.7
 
 # transaction parsing with various pre-annotations
-# for parsing from plain text, use jaworski.py
+# supports both parsing plain text files and CDLI-CoNLL/CoNLL-U files for pre-annotated text
+# conll mode requires the processed files to end in *.conll[^\.]*
+# text mode is optimized for speed, conll mode for quality
 
 ################
 # sample input #
 ################
 # with different kinds of pre-annotation
 
-# should NOT contain path separators
+# the path should NOT contain path separators
+# the directory should contain only input files
 INPUT=input
+
+# input as plain text, with one line per sentence
+TEXT=$INPUT/text
 
 # plain text in CoNLL format
 # full data under https://github.com/cdli-gh/mtaac_cdli_ur3_corpus/tree/master/ur3_corpus_data/conll
@@ -36,36 +42,45 @@ EXPORT=conll
 # CFG parsing #
 ###############
 
-for file in `find $INPUT | grep 'conll$'`; do
-	dir=`echo $file | sed s/'\/[^\/]*$'//g;`
-	dir=$OUTPUT/`echo $dir | sed s/'^'$INPUT//g`
-	if [ ! -e $dir ]; then 
-		echo create $dir 1>&2
-		mkdir -p $dir ; 
-	fi;
+for file in `find $INPUT`; do
+	if [ -f $file ]; then
+		dir=`echo $file | sed s/'\/[^\/]*$'//g;`
+		dir=$OUTPUT/`echo $dir | sed s/'^'$INPUT//g`
+		if [ ! -e $dir ]; then 
+			echo create $dir 1>&2
+			mkdir -p $dir ; 
+		fi;
 
+		if echo $file | egrep 'conll[^\.]*$' >&/dev/null; then
+			echo $file': parsing in CoNLL mode' 1>&2
+			PARSER=jaworski4conll.py
+		else
+			echo $file': parsing in plain text mode' 1>&2
+			PARSER=jaworski.py
+		fi;
 
-	# CFG parsing
-	id=`basename $file | sed s/'\..*'//g`
-	out=$dir/$id.psd;
-	echo CFG parsing "(disable partial parsing for speeding up)": $file "=>" $out 1>&2
-	$PYTHON jaworski4conll.py $file > $out
+		# CFG parsing
+		id=`basename $file | sed s/'\..*'//g`
+		out=$dir/$id.psd;
+		echo CFG parsing: $file "=>" $out 1>&2
+		$PYTHON $PARSER $file > $out
 
-	# UD export (experimental)
-	dir=$EXPORT/`echo $dir | sed s/'^'$OUTPUT//g`
-	if [ ! -e $dir ]; then
-		mkdir -p $dir;
-	fi;
+		# UD export (experimental)
+		dir=$EXPORT/`echo $dir | sed s/'^'$OUTPUT//g`
+		if [ ! -e $dir ]; then
+			mkdir -p $dir;
+		fi;
 
-	# file-by-file processing is slow, concatenate to speed up
-	tgt=$dir/$id.conll
-	echo UD conversion: $out "=>" $tgt 1>&2;
-	(bash -e jaworski2deps.sh $out > $tgt 2>$tgt.log)
-	if [ ! -s $tgt ]; then
-		cat $tgt.log 1>&2;
-		echo 1>&2
-	else
-		rm $tgt.log;
+		# file-by-file processing is slow, concatenate to speed up
+		tgt=$dir/$id.conll
+		echo UD conversion: $out "=>" $tgt 1>&2;
+		(bash -e jaworski2deps.sh $out > $tgt 2>$tgt.log)
+		if [ ! -s $tgt ]; then
+			cat $tgt.log 1>&2;
+			echo 1>&2
+		else
+			rm $tgt.log;
+		fi;
 	fi;
 done;
 echo done 1>&2

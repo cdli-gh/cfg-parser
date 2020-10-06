@@ -1,12 +1,24 @@
 # python 3.7
 import nltk
 import re
+import argparse
 
 # line-based parser for plain text
 # parse one line at a time (these lines don't necessarily contain complete information)
 
 # use jaworsky4conll.py if you want to take existing annotations into account, e.g., to deduce an alternative segmentation or exploit morphology annotation
 # unlike jaworsky4conll.py which iterates multiple times (to implement a preference over different start symbols), this is optimised for speed, but it may return a dispreferred analysis
+
+########
+# init #
+########
+
+parser = argparse.ArgumentParser(description='parse transactions from Ur-III admin texts, plain text format')
+parser.add_argument('files', metavar='FILE.txt', type=str, nargs='+',
+                    help='text files, one sentence per line, newline-separated')
+
+args = parser.parse_args()
+files=args.files
 
 #################
 # aux functions #
@@ -57,50 +69,51 @@ new_grammar=nltk.grammar.CFG.fromstring(new_grammar.split('\n')[1:])
 parser=PARSER_CLASS(new_grammar)
 grammar=new_grammar
 
-with open('P106438.txt',"r") as text:
-	line = text.readline()
-	while line:
-		s=line.strip()
-		
-		print('# '+s)
-		s=s.split(" ")
-		OOVrules=[]
-		for w in  get_missing_words(grammar, s):
-			lhs = nltk.grammar.Nonterminal('UNKNOWN')
-			new_production=nltk.grammar.Production(lhs, [w])
-			OOVrules.append(new_production)
-		if len(OOVrules)>0:
-			new_grammar=str(grammar)
-			for r in OOVrules:
-				new_grammar=new_grammar+"\n"+str(r)
+for file in files:
+	with open(file,"r") as text:
+		line = text.readline()
+		while line:
+			s=line.strip()
 			
-			lhss=set(map(lambda x: x.lhs(), grammar.productions()))
-			if not "UNKNOWN" in lhss:
-				for lhs in lhss:
-					if lhs!="LINE":
-						new_grammar=new_grammar+"\nFRAG -> "+str(lhs)+ " FRAG | FRAG "+str(lhs)
-			new_grammar=nltk.grammar.CFG.fromstring(new_grammar.split('\n')[1:])
-			new_grammar._start = nltk.grammar.Nonterminal("LINE") #grammar.start()
-			# print(new_grammar)
-			parser=PARSER_CLASS(new_grammar)
+			print('# '+s)
+			s=s.split(" ")
+			OOVrules=[]
+			for w in  get_missing_words(grammar, s):
+				lhs = nltk.grammar.Nonterminal('UNKNOWN')
+				new_production=nltk.grammar.Production(lhs, [w])
+				OOVrules.append(new_production)
+			if len(OOVrules)>0:
+				new_grammar=str(grammar)
+				for r in OOVrules:
+					new_grammar=new_grammar+"\n"+str(r)
 				
-		parses=[]
-		# print(parser.grammar().productions())
-		#for start in set(map(lambda x: x.lhs(), parser.grammar().productions())):
-		if(len(parses)==0):
-			#parser.grammar()._start = nltk.grammar.Nonterminal(str(start))
-			parses=list(parser.parse(s))
-			if(len(parses)>0):
-				print(parses[0])
-		if(len(parses)==0):		# cannot happen anymore
-			parse="(FRAG\n"
-			for w in s:
-				nterms=set(map(lambda x: str(x.lhs()),grammar.productions(rhs=w)))
-				nterms=sorted(list(nterms))
-				parse=parse+"  ("+"|".join(nterms)+ " "+w+")\n"
-			parse=parse+")"
-			#parse=nltk.Tree.fromstring(parse)
-			#print("# unseen combination of parseable phrases")
-			print(parse)
-		print()
-		line=text.readline()
+				lhss=set(map(lambda x: x.lhs(), grammar.productions()))
+				if not "UNKNOWN" in lhss:
+					for lhs in lhss:
+						if lhs!="LINE":
+							new_grammar=new_grammar+"\nFRAG -> "+str(lhs)+ " FRAG | FRAG "+str(lhs)
+				new_grammar=nltk.grammar.CFG.fromstring(new_grammar.split('\n')[1:])
+				new_grammar._start = nltk.grammar.Nonterminal("LINE") #grammar.start()
+				# print(new_grammar)
+				parser=PARSER_CLASS(new_grammar)
+					
+			parses=[]
+			# print(parser.grammar().productions())
+			#for start in set(map(lambda x: x.lhs(), parser.grammar().productions())):
+			if(len(parses)==0):
+				#parser.grammar()._start = nltk.grammar.Nonterminal(str(start))
+				parses=list(parser.parse(s))
+				if(len(parses)>0):
+					print(parses[0])
+			if(len(parses)==0):		# cannot happen anymore
+				parse="(FRAG\n"
+				for w in s:
+					nterms=set(map(lambda x: str(x.lhs()),grammar.productions(rhs=w)))
+					nterms=sorted(list(nterms))
+					parse=parse+"  ("+"|".join(nterms)+ " "+w+")\n"
+				parse=parse+")"
+				#parse=nltk.Tree.fromstring(parse)
+				#print("# unseen combination of parseable phrases")
+				print(parse)
+			print()
+			line=text.readline()
