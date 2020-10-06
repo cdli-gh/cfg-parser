@@ -117,10 +117,6 @@ TARGETS = ["EPILOG", "DATED_TRANSACTION", "TRANSACTION", "SUMMARY", "NUMBER_PROD
 TARGETS=list(map(lambda x: nltk.grammar.Nonterminal(x), TARGETS))
 FRAG=nltk.grammar.Nonterminal("FRAG")
 
-# preprocessing: undo sentence splitting, split
-# - before lines starting with a number (= candidate transaction) [CoNLL-C], or
-# - between verbs/proper nouns and numbers [CoNLL-U, line information lost]
-
 sentences=[]
 
 for file in files:
@@ -305,7 +301,7 @@ for file in files:
 							# print("# out of vocabulary items")
 							print(flatten_tree(parse))
 
-			if(parse==None):
+			if(parse==None):	# shouldn't happen
 				# this can happen only if we arrive at parseable constituents in an unforeseen order
 				# so, we return the results of the lexical lookup
 				parse="(FRAG\n"
