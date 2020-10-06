@@ -1,0 +1,281 @@
+#############################
+# input/plain/P330559.conll #
+#############################
+
+#new_text=P330559
+# ID	FORM	SEGM	XPOSTAG	HEAD	DEPREL	MISC
+# 5(disz) sila3 kasz saga 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz) (PRODUCT_PARAM saga)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga x-x-i3-li2
+(FRAG
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2))))
+  (PRODUCT (PRODUCT_NAME i3))
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2))))
+  (PRODUCT (PRODUCT_NAME naga))
+  (UNKNOWN x-x-i3-li2))
+
+# 5(disz) sila3 kasz saga 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz) (PRODUCT_PARAM saga)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga dingir-ra-bi2
+(TRANSACTION
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga))))
+  (AGENT (PERSON (PN dingir-ra-bi2))))
+
+# 5(disz) sila3 kasz 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga lu2-dingir-ra
+(TRANSACTION
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga))))
+  (AGENT (PERSON (PN lu2-dingir-ra))))
+
+# 5(disz) sila3 kasz 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga ...
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 2(disz)))
+    (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga)))
+  (GAP ...))
+
+# 5(disz) sila3 kasz 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga {d}utu-ba-ni
+(TRANSACTION
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga))))
+  (AGENT (PERSON (PN {d}utu-ba-ni))))
+
+# 5(disz) sila3 kasz 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga szu-{d}ma-mi-tum
+(TRANSACTION
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga))))
+  (AGENT (PERSON (PN szu-{d}ma-mi-tum))))
+
+# 5(disz) sila3 kasz 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga gu3-de2-a
+(TRANSACTION
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga))))
+  (AGENT (PERSON (PN gu3-de2-a))))
+
+# 5(disz) sila3 kasz 5(disz) sila3 ninda 5(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga e2-a-ba-ni
+(TRANSACTION
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga))))
+  (AGENT (PERSON (PN e2-a-ba-ni))))
+
+# 3(disz) sila3 kasz 2(disz) sila3 ninda 3(disz) gin2 szum2
+(NUMBER_PRODUCT_LIST
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME kasz)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 2(disz)))
+    (UNIT sila3)
+    (PRODUCT (PRODUCT_NAME ninda)))
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (PRODUCT (PRODUCT_NAME gin2))
+    (UNIT szum2)))
+
+# 3(disz) gin2 i3 2(disz) gin2 naga a-da-lal3
+(TRANSACTION
+  (NUMBER_PRODUCT_LIST
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 3(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+    (NUMBER_PRODUCT
+      (NUMBERS (NUMBER 2(disz)))
+      (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga))))
+  (AGENT (PERSON (PN a-da-lal3))))
+
+# szunigin 1(ban2) 5(disz) sila3 kasz saga 2(ban2) 7(disz) sila3 kasz 4(disz) 1/3(disz) sila3 ninda 2/3(disz) sila3 5(disz) gin2 szum2
+(SUMMARY
+  (SZU_NIGIN
+    (SZUNIGIN szunigin)
+    (NUMBER_PRODUCT_LIST
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 1(ban2)) (NUMBER 5(disz)))
+        (UNIT sila3)
+        (PRODUCT (PRODUCT_NAME kasz) (PRODUCT_PARAM saga)))
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 2(ban2)) (NUMBER 7(disz)))
+        (UNIT sila3)
+        (PRODUCT (PRODUCT_NAME kasz)))
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 4(disz)) (NUMBER 1/3(disz)))
+        (UNIT sila3)
+        (PRODUCT (PRODUCT_NAME ninda)))
+      (NUMBER_PRODUCT (NUMBERS (NUMBER 2/3(disz))) (UNIT sila3))
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 5(disz)))
+        (PRODUCT (PRODUCT_NAME gin2))
+        (UNIT szum2)))))
+
+# szunigin 1/3(disz) sila3 7(disz) gin2 i3 1(u) 6(disz) gin2 naga u4 2(u) 6(disz)-kam iti sze-sag11-ku5
+(SUMMARY
+  (SZU_NIGIN
+    (SZUNIGIN szunigin)
+    (NUMBER_PRODUCT_LIST
+      (NUMBER_PRODUCT (NUMBERS (NUMBER 1/3(disz))) (UNIT sila3))
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 7(disz)))
+        (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME i3)))
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 1(u)) (NUMBER 6(disz)))
+        (PRODUCT (PRODUCT_NAME gin2) (PRODUCT_NAME naga)))))
+  (DATE
+    (DAY (U4 u4) (NUMBERS (NUMBER 2(u)) (NUMBER 6(disz)-kam)))
+    (MONTH (ITI iti) (MONTH_NAME sze-sag11-ku5))))
+
