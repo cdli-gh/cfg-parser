@@ -15,7 +15,7 @@ CONLL=~/conll-rdf
 #LOAD=$CONLL/run.sh" CoNLLStreamExtractor http://ignore.me/ WORD PARSE"
 LOAD=$CONLL/run.sh" CoNLLBrackets2RDF http://ignore.me/ WORD PARSE"
 TRANSFORM=$CONLL/run.sh" CoNLLRDFUpdater -custom -updates"
-WRITE=$CONLL/run.sh" CoNLLRDFFormatter -grammar"
+WRITE=$CONLL/run.sh" CoNLLRDFFormatter "
 
 #
 # RUN
@@ -47,7 +47,7 @@ done | \
 	# # DEBUG mode
 # head -n 100 | \
 \
-	# CoNLL2DEPS
+# CoNLL2DEPS
 $LOAD | \
 $TRANSFORM \
 	consolidate-parse.sparql \
@@ -55,4 +55,4 @@ $TRANSFORM \
 	parse2dep.sparql \
 	dep2ud.sparql \
 	| \
-$WRITE
+$WRITE -conll ID WORD LEMMA UPOS XPOS FEATS HEAD EDGE DEPS PSD

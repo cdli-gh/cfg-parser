@@ -13,7 +13,8 @@ Components
 	
 	Note that current development focuses on jawoski4conll.py is currently maintained.
 	
-- Experimental conversion to UD. This also provides routines to connect all partial analyses into a single result graph.
+- Experimental conversion to UD dependency labels. This also provides routines to connect all partial analyses into a 
+  single result graph. Note that these "repair operations" are relatively slow.
 
 	jaworski2deps.sh
 
@@ -21,7 +22,10 @@ Components
 
 	demo.sh
 
-Note: The parser currently operates in development mode, i.e., not optimized for run-time. To produce partial parses, it re-iterates over the CFG grammar using different start symbols. For production mode, use *only* TRANSACTION as start symbol.
+Note: The intended application of the parser is to mine gold data to train annotators on. It is not optimized for speed,
+but aims to maximize recall by maintaining a maximum level of precision. Therefore, the parser is iteratively applied: 
+To produce partial parses, it re-iterates over the CFG grammar using different start symbols. For production mode, use 
+*only* TRANSACTION as start symbol.
 
 Acknowledgements
 ==

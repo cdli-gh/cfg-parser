@@ -325,3 +325,19 @@ DELETE {
 	?d conll:EDGE ?öld.
 	MINUS { ?d conll:HEAD/a nif:Word }
 };
+
+
+# create conll:ID 
+INSERT {
+	?w conll:ID ?id
+} WHERE {
+	?w a nif:Word.
+	MINUS { ?w conll:ID [] }
+	{ SELECT ?w (COUNT(distinct ?pre) AS ?nr)
+	  WHERE {
+		?w a nif:Word.
+		?pre nif:nextWord* ?w
+	  } GROUP BY ?w
+	}
+	BIND(str(?nr) as ?id)
+};

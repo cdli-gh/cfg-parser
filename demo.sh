@@ -60,6 +60,12 @@ for file in `find $INPUT | grep 'conll$'`; do
 	# file-by-file processing is slow, concatenate to speed up
 	tgt=$dir/$id.conll
 	echo UD conversion: $out "=>" $tgt 1>&2;
-	bash -e jaworski2deps.sh $out > $tgt
+	(bash -e jaworski2deps.sh $out > $tgt 2>$tgt.log)
+	if [ ! -s $tgt ]; then
+		cat $tgt.log 1>&2;
+		echo 1>&2
+	else
+		rm $tgt.log;
+	fi;
 done;
 echo done 1>&2
