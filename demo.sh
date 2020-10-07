@@ -2,9 +2,9 @@
 PYTHON=python3.7
 
 # transaction parsing with various pre-annotations
-# supports both parsing plain text files and CDLI-CoNLL/CoNLL-U files for pre-annotated text
+# supports both parsing plain text/atf files and CDLI-CoNLL/CoNLL-U files for pre-annotated text
 # conll mode requires the processed files to end in *.conll[^\.]*
-# text mode is optimized for speed, conll mode for quality
+# text/atf mode is optimized for speed, conll mode for quality
 
 ################
 # sample input #
@@ -14,6 +14,9 @@ PYTHON=python3.7
 # the path should NOT contain path separators
 # the directory should contain only input files
 INPUT=input
+
+# input as ATF file (no annotations)
+ATF=$INPUT/atf
 
 # input as plain text, with one line per sentence
 TEXT=$INPUT/text
@@ -45,7 +48,7 @@ EXPORT=conll
 for file in `find $INPUT`; do
 	if [ -f $file ]; then
 		dir=`echo $file | sed s/'\/[^\/]*$'//g;`
-		dir=$OUTPUT/`echo $dir | sed s/'^'$INPUT//g`
+		dir=$OUTPUT`echo $dir | sed s/'^'$INPUT//g`
 		if [ ! -e $dir ]; then 
 			echo create $dir 1>&2
 			mkdir -p $dir ; 
@@ -63,10 +66,11 @@ for file in `find $INPUT`; do
 		id=`basename $file | sed s/'\..*'//g`
 		out=$dir/$id.psd;
 		echo CFG parsing: $file "=>" $out 1>&2
-		$PYTHON $PARSER $file > $out
+		time ($PYTHON $PARSER $file > $out) 1>&2
+		echo 1>&2
 
 		# UD export (experimental)
-		dir=$EXPORT/`echo $dir | sed s/'^'$OUTPUT//g`
+		dir=$EXPORT`echo $dir | sed s/'^'$OUTPUT//g`
 		if [ ! -e $dir ]; then
 			mkdir -p $dir;
 		fi;
@@ -74,7 +78,8 @@ for file in `find $INPUT`; do
 		# file-by-file processing is slow, concatenate to speed up
 		tgt=$dir/$id.conll
 		echo UD conversion: $out "=>" $tgt 1>&2;
-		(bash -e jaworski2deps.sh $out > $tgt 2>$tgt.log)
+		time (bash -e jaworski2deps.sh $out > $tgt 2>$tgt.log) 1>&2
+		echo 1>&2
 		if [ ! -s $tgt ]; then
 			cat $tgt.log 1>&2;
 			echo 1>&2

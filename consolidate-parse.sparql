@@ -6,6 +6,22 @@ PREFIX x: <http://purl.org/acoli/conll-rdf/xml#>
 PREFIX nif: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
+
+# eliminate all top-level "LINE" nodes
+# these are not part of the core CFG grammar, but added to it by jaworski.py to facilitate line-level parsing
+DELETE {
+	?a ?b ?line.
+	?line ?c ?d.
+# } INSERT {
+#	?child rdfs:comment "removed LINE"
+} WHERE {
+	?line a powla:Node; rdf:value "LINE".
+	# MINUS { ?line powla:hasParent [] }	# otherwise, the tree may get detached
+	?line ?c ?d.
+	OPTIONAL { ?a ?b ?line }
+#	OPTIONAL { ?child powla:hasParent ?line }
+};
+
 # replace all powla:Nodes with an rdf:value by the corresponding conll-type
 DELETE {
 	?n a powla:Node, conll:PARSE

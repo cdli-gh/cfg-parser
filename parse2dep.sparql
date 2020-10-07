@@ -86,16 +86,13 @@ INSERT {
 # head is the first person
 # ACCOUNTING	->	ZIGA PERSON
 # BALA_PERSON	->	BALA PERSON
-# GIRI3_PERSON	->	GIRI3 PERSON
-# KISZIB_PERSON	->	KISZIB PERSON
-# MUDU_PERSON	->	MUDU PERSON 
 # COPY	->	GABARI KISZIBA PERSON
 INSERT {
 	?a terms:HEAD ?b
 } WHERE {
 	?b a conll:PERSON; powla:hasParent ?a.
 	?a a ?A.
-	FILTER(?A in (conll:ACCOUNTING, conll:BALA_PERSON, conll:GIRI3_PERSON, conll:KISZIB_PERSON, conll:MUDU_PERSON, conll:COPY))
+	FILTER(?A in (conll:ACCOUNTING, conll:BALA_PERSON, conll:COPY))
 	MINUS { ?a terms:HEAD [] }
 	MINUS { ?c a conll:PERSON; powla:hasParent ?a; (^powla:hasParent)+/nif:nextWord+/powla:hasParent+ ?b
 		FILTER(?c!=?b)
@@ -123,6 +120,9 @@ INSERT {
 
 
 # head is the first child (= default)
+# GIRI3_PERSON	->	GIRI3 PERSON
+# KISZIB_PERSON	->	KISZIB PERSON
+# MUDU_PERSON	->	MUDU PERSON 
 # COPY	->	GABARI KISZIB_PERSON 
 # DATE	->	DAY MONTH YEAR 
 # DATE	->	MONTH YEAR 
@@ -190,6 +190,14 @@ INSERT {
 	?A rdf:value ?cat.
 };
 
+# if multiple heads exist (should not happen), keep the first, only
+DELETE {
+	?parent terms:HEAD ?second
+} WHERE {
+	?parent terms:HEAD ?first, ?second. FILTER(?first!=?second)
+	?first terms:HEAD*/nif:nextWord+/(^terms:HEAD)* ?second.
+};
+
 # create HEAD properties
 DELETE {
 	?a conll:HEAD ?s
@@ -250,6 +258,15 @@ DELETE {
 # map EDGE labels from semantic roles to CDLI labels
 #
 
+# if parent label is FRAG, the local label *must* be dep, because attachment is uncertain, then
+DELETE {
+	?d conll:EDGE ?edge
+} INSERT {
+	?d conll:EDGE "dep"
+} WHERE {
+	?d conll:EDGE ?edge; conll:HEAD/conll:EDGE "FRAG"
+};
+
 # clausal arguments (in year names only -- we have no idea how to disambiguate this, must be done via morphology
 DELETE {
 	?d conll:EDGE ?old
@@ -277,6 +294,10 @@ DELETE {
 			( "AGENT" "agent" )
 			( "SUMMARY" "total")
 			( "GAP" "dep")
+			( "MUDU" "advcl" )	# English translations: mu-kux(DU) PN.GEN "delivery of"; MTAAC morphology: either N.ABS PN.ERG or V.SUB PN.ERG; Jaworski: receiver is probably MUDU's representative; if we take this to be verbal, this could be something like "on behalf of", i.e. similar to an adverbial. hence advcl ?; todo: update annodoc
+			( "GIRI3" "nmod:via" )		# todo: update annodoc
+			( "KISZIB" "nmod:under" )	# "under the seal of"; todo: update annodoc
+			( "SZA3" "nmod:in" )		# locative
 		}
 };
 
@@ -308,9 +329,14 @@ DELETE {
 			( "CLAUSE" "acl" )			# to be confirmed, for year names
 			( "NUMBER_PRODUCT" "list") 	# for non-first NUMBER_PRODUCTS only; indeed, the first element should be a NUMBER_PRODUCT_LIST
 			( "TRANSACTION" "parataxis") # not for the first (= root node, no head)
-			( "NUMBER" "compound")	# only if head is number, otherwise, this would be NUMBERS
-			( "MINUS" "compound") 	# within numeral phrases, actually sentential
+			( "NUMBER" "nummod")	# only if head is number, otherwise, this would be NUMBERS
+			( "MINUS" "acl") 		# within numeral phrases, actually sentential
+			( "PERSON" "nmod") 		# for kiszib3, this is GEN/nmod:of, for mu-kux(DU), this is ERG (!)
 			( "JOB" "appos" )
+			( "UNKNOWN" "dep" )
+			( "FRAG" "dep" )
+			( "JOBNAME" "appos" )
+			( "NUMBER_PRODUCT_LIST" "GEN" ) 	# total *of* (szunigin ... kasz), tbc.
 			( "CITY" "GEN" )		# also LOC ?
 			( "PRODUCT_PARAM" "appos")
 		}
@@ -326,6 +352,17 @@ DELETE {
 	MINUS { ?d conll:HEAD/a nif:Word }
 };
 
+# fix complex numerals: numerals following MINUS and modifying the same head must modify MINUS
+DELETE {
+	?num conll:HEAD ?h
+} INSERT {
+	?num conll:HEAD ?la
+} WHERE {
+	?num conll:EDGE "nummod"; conll:HEAD ?h.
+	?h nif:nextWord+ ?la.
+	?la conll:WORD "la2"; conll:HEAD ?h.
+	?la nif:nextWord+ ?num.
+};
 
 # create conll:ID 
 INSERT {

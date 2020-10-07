@@ -25,7 +25,7 @@ for file in $*; do
 
 	# PSD 2 CoNLL
 	echo '# '$file;
-	cat $file | sed s/'\#.*'// | \
+	cat $file | sed s/'\#.*'// | egrep '.' |\
 	perl -pe '
 		s/\s+/ /g;
 		s/\)\s*\(/\)\n\(/g;

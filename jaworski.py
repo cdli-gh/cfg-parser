@@ -2,9 +2,11 @@
 import nltk
 import re
 import argparse
+import io
 
-# line-based parser for plain text
-# parse one line at a time (these lines don't necessarily contain complete information)
+# line-based parser for plain text and ATF formats
+# text: default mode, parse one line at a time (these lines don't necessarily contain complete information)
+# atf: use this if file ends in '.atf', extracts text before running in text mode
 
 # use jaworsky4conll.py if you want to take existing annotations into account, e.g., to deduce an alternative segmentation or exploit morphology annotation
 # unlike jaworsky4conll.py which iterates multiple times (to implement a preference over different start symbols), this is optimised for speed, but it may return a dispreferred analysis
@@ -15,7 +17,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='parse transactions from Ur-III admin texts, plain text format')
 parser.add_argument('files', metavar='FILE.txt', type=str, nargs='+',
-                    help='text files, one sentence per line, newline-separated')
+                    help='text (default) or ATF files (ending in ".atf"); text mode: expect one sentence per line, newline-separated; ATF mode: extract text before running analysis')
 
 args = parser.parse_args()
 files=args.files
@@ -56,9 +58,8 @@ PARSER_CLASS=nltk.parse.IncrementalLeftCornerChartParser						# 11.5 s
 # PARSER_CLASS=nltk.parse.chart.TopDownChartParser								# 27.7 s
 
 ## failed
-# PARSER_CLASS=nltk.parse.recursivedescent.RecursiveDescentParser	# interrupted after 17 s
 # PARSER_CLASS=nltk.parse.ShiftReduceParser 						# lossy; numerous "will never be used" warnings
-# PARSER_CLASS=nltk.parse.RecursiveDescentParser					# ran into infinite loop
+# PARSER_CLASS=nltk.parse.RecursiveDescentParser					# ran into infinite loop# PARSER_CLASS=nltk.parse.recursivedescent.RecursiveDescentParser	# interrupted after 17 s
 
 parser=PARSER_CLASS(grammar)
 
@@ -70,12 +71,39 @@ parser=PARSER_CLASS(new_grammar)
 grammar=new_grammar
 
 for file in files:
-	with open(file,"r") as text:
-		line = text.readline()
-		while line:
-			s=line.strip()
-			
+	text=None
+	
+	if file.endswith(".atf"):
+		tmpfile=io.StringIO()
+		with open(file, "r") as atf:
+			line=atf.readline()
+			textline=re.compile(r"^[0-9]+\.?\s+")
+			while line:
+				line=line.strip()
+				if(textline.match(line)):
+					tmpfile.write(re.sub(textline,"",line)+"\n")
+				elif(line.startswith("#") or len(line)==0):
+					tmpfile.write(line+"\n")
+				else:
+					tmpfile.write("# "+line+"\n")
+					tmpfile.flush()
+				line=atf.readline()
+		text=tmpfile.getvalue()
+		tmpfile.close()
+	else:
+		with open(file,"r") as input:
+			text=input.read()
+
+	for line in text.split("\n"):
+		s=line.strip()
+		
+		if(s.startswith("#")):
+			print(s+"\n")
+		elif(len(s)==0):
+			print()
+		else:
 			print('# '+s)
+			s=re.sub(r"[#!\[\]\?]","",s)	# remove special characters that are reserved characters in URIs
 			s=s.split(" ")
 			OOVrules=[]
 			for w in  get_missing_words(grammar, s):
@@ -87,7 +115,7 @@ for file in files:
 				for r in OOVrules:
 					new_grammar=new_grammar+"\n"+str(r)
 				
-				lhss=set(map(lambda x: x.lhs(), grammar.productions()))
+				lhss=set(map(lambda x: str(x.lhs()), grammar.productions()))
 				if not "UNKNOWN" in lhss:
 					for lhs in lhss:
 						if lhs!="LINE":
@@ -116,4 +144,3 @@ for file in files:
 				#print("# unseen combination of parseable phrases")
 				print(parse)
 			print()
-			line=text.readline()

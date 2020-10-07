@@ -9,27 +9,26 @@ Components
 	
 	`jaworski.cfg` CFG grammar, slightly enriched extraction patterns as defined by Jaworski (2008)
 
-	`jaworski.py` for parsing plain text, one line at a time. Optimised for speed, not accuracy.
+	`jaworski.py` for parsing plain text as extracted from an ATF file, one line at a time. Optimised for speed, not accuracy.
 
 	`jaworski4conll.py` for parsing with pre-annotations (CDLI-CoNLL: tokenization, morphology, CoNLL-U/CDLI-CoNLL: dependency syntax).
 	Can process multi-line tokens. Implements a preference ranking over possible start symbols by means of iterated parses with different start symbols. Relatively slow.
 
-	Note that current development focuses on `jaworski4conll.py`.
-	
 - Experimental conversion to UD dependency labels. This also provides routines to connect all partial analyses into a 
   single result graph. Note that these "repair operations" are rather slow.
 
 	`jaworski2deps.sh`
 
-- Workflow demonstration on sample data (CoNLL only)
+- Workflow demonstration on sample data (for CoNLL and text files)
 
 	`demo.sh`
 
 Note: For high-precision parsing, we recommend jaworski4conll.py. 
 The primary application of this parser is to mine gold data to train annotators on. It is not optimized for speed,
 but aims to maximize recall while maintaining a maximum level of precision. Therefore, the parser is iteratively applied: 
-To produce partial parses, it re-iterates over the CFG grammar using different start symbols. For production mode, use 
-jaworski.py.
+To produce partial parses, it re-iterates over the CFG grammar using different start symbols.
+
+Note: For speed (e.g., in production mode), we recommend jaworski.py.
 
 Acknowledgements
 ==

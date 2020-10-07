@@ -1,0 +1,519 @@
+#new_text=P106438 FORM
+
+# 1(u) la2 1(disz) gu4 niga saga
+(FRAG
+  (NUMBER 1(u))
+  (MINUS la2)
+  (NUMBER 1(disz))
+  (PRODUCT_NAME gu4)
+  (PRODUCT_PARAM niga)
+  (PRODUCT_PARAM saga)
+)
+
+# 1(gesz2) 1(u) 4(disz) gu4 niga us2
+(LINE
+  (FRAG
+    (NUMBERS (NUMBER 1(gesz2)))
+    (FRAG
+      (NUMBER_PRODUCT_LIST
+        (NUMBER_PRODUCT
+          (NUMBERS (NUMBERS (NUMBER 1(u))) (NUMBER 4(disz)))
+          (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_PARAM niga))))
+      (FRAG (UNKNOWN us2)))))
+
+# 1(u) 5(disz) ab2 mu 2(asz) niga
+(FRAG
+  (NUMBER 1(u))
+  (NUMBER 5(disz))
+  (PRODUCT_NAME ab2)
+  (MU mu)
+  (NUMBER 2(asz))
+  (PRODUCT_PARAM niga)
+)
+
+# 1(disz) gu4 u2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_NAME u2))))
+
+# 1(disz) eme3-mah2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT_NAME eme3-mah2))))
+
+# 5(disz) udu niga saga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_PARAM niga))
+      (PRODUCT_PARAM saga))))
+
+# 5(gesz2) 2(u) 7(disz) udu niga us2
+(LINE
+  (FRAG
+    (NUMBERS (NUMBER 5(gesz2)))
+    (FRAG
+      (NUMBER_PRODUCT_LIST
+        (NUMBER_PRODUCT
+          (NUMBERS (NUMBERS (NUMBER 2(u))) (NUMBER 7(disz)))
+          (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_PARAM niga))))
+      (FRAG (UNKNOWN us2)))))
+
+# 2(u) 5(disz) udu u2 bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 2(u))) (NUMBER 5(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME u2))
+      (PRODUCT_NAME bar-gal2))))
+
+# 6(gesz2) 1(u) 3(disz) udu u2 bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS
+      (NUMBERS (NUMBERS (NUMBER 6(gesz2))) (NUMBER 1(u)))
+      (NUMBER 3(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME u2))
+      (PRODUCT_PARAM bar-su-ga))))
+
+# 5(gesz2) 4(u) 4(disz) sila4
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS
+      (NUMBERS (NUMBERS (NUMBER 5(gesz2))) (NUMBER 4(u)))
+      (NUMBER 4(disz)))
+    (PRODUCT (PRODUCT_NAME sila4))))
+
+# 1(gesz2) masz2 niga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 1(gesz2)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME masz2)) (PRODUCT_PARAM niga))))
+
+# 4(gesz2) 1(u) la2 1(disz) masz2 u2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS
+      (NUMBERS (NUMBERS (NUMBER 4(gesz2))) (NUMBER 1(u)))
+      (MINUS la2)
+      (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME masz2)) (PRODUCT_NAME u2))))
+
+# zi-ga bala-a sza3 nibru{ki} u3 sza3 uri5{ki}-ma
+(LINE
+  (FRAG
+    (FRAG
+      (ZIGA zi-ga)
+      (FRAG
+        (FRAG
+          (FRAG
+            (FRAG (FRAG (UNKNOWN bala-a)) (SZA3 sza3))
+            (CITY nibru{ki}))
+          (CONJ u3))
+        (SZA3 sza3)))
+    (CITY uri5{ki}-ma)))
+
+# 2(u) gu4 niga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 2(u)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_PARAM niga))))
+
+# 3(u) udu niga bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(u)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_PARAM niga))
+      (PRODUCT_PARAM bar-su-ga))))
+
+# 1(u) 7(disz) masz2-gal niga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 1(u))) (NUMBER 7(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME masz2-gal)) (PRODUCT_PARAM niga))))
+
+# 1(u) 2(disz) udu u2 bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 1(u))) (NUMBER 2(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME u2))
+      (PRODUCT_NAME bar-gal2))))
+
+# 5(u) 6(disz) udu u2 bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 5(u))) (NUMBER 6(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME u2))
+      (PRODUCT_PARAM bar-su-ga))))
+
+# 4(u) 5(disz) masz2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 4(u))) (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT_NAME masz2))))
+
+# kasz-de2-a lugal
+(LINE (FRAG (FRAG (UNKNOWN kasz-de2-a)) (PRODUCT_PARAM lugal)))
+
+# u3 nin-kal-la
+(FRAG
+  (CONJ u3)
+  (PN nin-kal-la)
+)
+
+# 3(disz) gu4 niga saga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_PARAM niga))
+      (PRODUCT_PARAM saga))))
+
+# 2(disz) ab2 mu 2(asz) niga
+(FRAG
+  (NUMBER 2(disz))
+  (PRODUCT_NAME ab2)
+  (MU mu)
+  (NUMBER 2(asz))
+  (PRODUCT_PARAM niga)
+)
+
+# 4(disz) udu niga saga bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 4(disz)))
+    (PRODUCT
+      (PRODUCT
+        (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_PARAM niga))
+        (PRODUCT_PARAM saga))
+      (PRODUCT_PARAM bar-su-ga))))
+
+# 2(u) la2 1(disz) udu u2 bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 2(u))) (MINUS la2) (NUMBER 1(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME u2))
+      (PRODUCT_NAME bar-gal2))))
+
+# 1(u) 5(disz) udu u2 bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 1(u))) (NUMBER 5(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME u2))
+      (PRODUCT_PARAM bar-su-ga))))
+
+# 1(disz) sila4 niga bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 1(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT (PRODUCT_NAME sila4)) (PRODUCT_PARAM niga))
+      (PRODUCT_PARAM bar-su-ga))))
+
+# 3(disz) sila4 bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (PRODUCT
+      (PRODUCT (PRODUCT_NAME sila4))
+      (PRODUCT_PARAM bar-su-ga))))
+
+# masz2-da-re6-a lugal
+(LINE (FRAG (FRAG (UNKNOWN masz2-da-re6-a)) (PRODUCT_PARAM lugal)))
+
+# kiszib3 ensi2-ka
+(LINE
+  (KISZIB_PERSON (KISZIB kiszib3) (PERSON (JOB (JOBNAME ensi2-ka)))))
+
+# 1(u) 2(disz) gu4 niga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 1(u))) (NUMBER 2(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_PARAM niga))))
+
+# sa2-du11 {d}szara2 umma{ki}
+(LINE
+  (FRAG
+    (FRAG (UNKNOWN sa2-du11))
+    (PURPOSE (GOD (GOD_NAME {d}szara2)) (CITY umma{ki}))))
+
+# 1(disz) gu4 niga {d}szul-gi
+(LINE
+  (TRANSACTION
+    (NUMBER_PRODUCT_LIST
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 1(disz)))
+        (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_PARAM niga))))
+    (AGENT (PERSON (PN {d}szul-gi)))))
+
+# 7(disz) gu4 niga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 7(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_PARAM niga))))
+
+# nig2-{gesz}tag-ga lugal
+(LINE
+  (FRAG (FRAG (UNKNOWN nig2-{gesz}tag-ga)) (PRODUCT_PARAM lugal)))
+
+# x ... x x ...
+(LINE
+  (FRAG
+    (FRAG (FRAG (FRAG (UNKNOWN x)) (GAP ...)) (UNKNOWN x))
+    (FRAG (FRAG (UNKNOWN x)) (GAP ...))))
+
+# 2(disz) ab2-mah2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 2(disz)))
+    (PRODUCT (PRODUCT_NAME ab2-mah2))))
+
+# 1(disz) ab2 ga (x)
+(LINE
+  (FRAG
+    (NUMBER_PRODUCT_LIST
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 1(disz)))
+        (PRODUCT (PRODUCT (PRODUCT_NAME ab2)) (PRODUCT_PARAM ga))))
+    (FRAG (UNKNOWN (x)))))
+
+# 1(disz) gu4 ga (x)
+(LINE
+  (FRAG
+    (NUMBER_PRODUCT_LIST
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 1(disz)))
+        (PRODUCT (PRODUCT (PRODUCT_NAME gu4)) (PRODUCT_PARAM ga))))
+    (FRAG (UNKNOWN (x)))))
+
+# 2(u) 1(disz) udu bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 2(u))) (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME bar-gal2))))
+
+# 2(u) 1(disz) masz2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 2(u))) (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT_NAME masz2))))
+
+# 4(disz) masz2 mu masz-da3 szeg9-bar-sze3
+(LINE
+  (FRAG
+    (NUMBERS (NUMBER 4(disz)))
+    (FRAG
+      (FRAG
+        (PRODUCT (PRODUCT_NAME masz2))
+        (FRAG (MU mu) (FRAG (UNKNOWN masz-da3))))
+      (UNKNOWN szeg9-bar-sze3))))
+
+# nesag {d}en-lil2-la2-sze3
+(FRAG
+  (MONTH_NAME nesag)
+  (GOD_NAME {d}en-lil2-la2-sze3)
+)
+
+# 3(disz) gu4 ri-ri-ga
+(LINE
+  (FRAG
+    (NUMBER_PRODUCT_LIST
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 3(disz)))
+        (PRODUCT (PRODUCT_NAME gu4))))
+    (FRAG (UNKNOWN ri-ri-ga))))
+
+# kiszib3 da-da-ga
+(LINE (KISZIB_PERSON (KISZIB kiszib3) (PERSON (PN da-da-ga))))
+
+# 1(disz) gu4 KA-a lu2-pa3-da dub-sar szu ba-ra
+(LINE
+  (FRAG
+    (NUMBERS (NUMBER 1(disz)))
+    (FRAG
+      (FRAG (PRODUCT (PRODUCT_NAME gu4)) (FRAG (UNKNOWN KA-a)))
+      (FRAG
+        (FRAG
+          (AGENT (PERSON (PN lu2-pa3-da) (JOB (JOBNAME dub-sar))))
+          (FRAG (UNKNOWN szu)))
+        (UNKNOWN ba-ra)))))
+
+# inim ensi2-ka-ta
+(LINE (FRAG (FRAG (UNKNOWN inim)) (JOBNAME ensi2-ka-ta)))
+
+# 4(disz) ab2 mu 2(asz)
+(FRAG
+  (NUMBER 4(disz))
+  (PRODUCT_NAME ab2)
+  (MU mu)
+  (NUMBER 2(asz))
+)
+
+# 4(disz) gu4 mu 3(asz)
+(FRAG
+  (NUMBER 4(disz))
+  (PRODUCT_NAME gu4)
+  (MU mu)
+  (NUMBER 3(asz))
+)
+
+# la2-ia3 su-ga lugal-dub-la2
+(LINE
+  (FRAG
+    (FRAG (PRODUCT (PRODUCT_NAME la2-ia3)) (FRAG (UNKNOWN su-ga)))
+    (PN lugal-dub-la2)))
+
+# 4(disz) gu4 e2-gu4-ta
+(LINE
+  (FRAG
+    (NUMBER_PRODUCT_LIST
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER 4(disz)))
+        (PRODUCT (PRODUCT_NAME gu4))))
+    (FRAG (UNKNOWN e2-gu4-ta))))
+
+# 1(disz) ab2-mah2 e2-ta gur-ra
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME ab2-mah2)) (PRODUCT_NAME e2-ta))
+    (UNIT gur-ra)))
+
+# ugu2 kas4 ba-a-gar
+(LINE
+  (FRAG (FRAG (FRAG (UNKNOWN ugu2)) (PN kas4)) (UNKNOWN ba-a-gar)))
+
+# kiszib3 ur-{d}szara2 sza13-dub-ba
+(LINE
+  (KISZIB_PERSON
+    (KISZIB kiszib3)
+    (PERSON (PN ur-{d}szara2) (JOB (JOBNAME sza13-dub-ba)))))
+
+# 5(disz) udu bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 5(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME bar-gal2))))
+
+# 3(u) 3(disz) udu bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 3(u))) (NUMBER 3(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_PARAM bar-su-ga))))
+
+# 3(disz) sila4
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (PRODUCT (PRODUCT_NAME sila4))))
+
+# 2(u) 1(disz) masz2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 2(u))) (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT_NAME masz2))))
+
+# mu-kux(DU) {d}szara2 |KI.AN|{ki}
+(LINE
+  (MUDU_PERSON
+    (MUDU mu-kux(DU))
+    (GOD (GOD (GOD_NAME {d}szara2)) (CITY |KI.AN|{ki}))))
+
+# 6(disz) udu bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 6(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME bar-gal2))))
+
+# 4(u) 2(disz) udu bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 4(u))) (NUMBER 2(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_PARAM bar-su-ga))))
+
+# 2(disz) masz2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 2(disz)))
+    (PRODUCT (PRODUCT_NAME masz2))))
+
+# giri3 ur-e11-e
+(LINE (GIRI3_PERSON (GIRI3 giri3) (PERSON (PN ur-e11-e))))
+
+# ugu2 lu2-{d}suen
+(LINE (FRAG (FRAG (UNKNOWN ugu2)) (PN lu2-{d}suen)))
+
+# 1(u) 3(disz) masz2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBERS (NUMBER 1(u))) (NUMBER 3(disz)))
+    (PRODUCT (PRODUCT_NAME masz2))))
+
+# giri3 ba-sa6
+(LINE (GIRI3_PERSON (GIRI3 giri3) (PERSON (PN ba-sa6))))
+
+# 8(disz) masz2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 8(disz)))
+    (PRODUCT (PRODUCT_NAME masz2))))
+
+# giri3 da-gi
+(LINE (GIRI3_PERSON (GIRI3 giri3) (PERSON (PN da-gi))))
+
+# ugu2 ur-{d}nisaba ba-a-gar
+(LINE
+  (FRAG
+    (FRAG (FRAG (UNKNOWN ugu2)) (PN ur-{d}nisaba))
+    (UNKNOWN ba-a-gar)))
+
+# kiszib3 lu2-banda3{da}
+(LINE (KISZIB_PERSON (KISZIB kiszib3) (PERSON (PN lu2-banda3{da}))))
+
+# 3(disz) udu bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_NAME bar-gal2))))
+
+# 2(disz) sila4 bar-gal2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 2(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME sila4)) (PRODUCT_NAME bar-gal2))))
+
+# 1(disz) udu bar-su-ga
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 1(disz)))
+    (PRODUCT (PRODUCT (PRODUCT_NAME udu)) (PRODUCT_PARAM bar-su-ga))))
+
+# 3(disz) masz2
+(LINE
+  (NUMBER_PRODUCT
+    (NUMBERS (NUMBER 3(disz)))
+    (PRODUCT (PRODUCT_NAME masz2))))
+
+# kiszib3 ur-{d}nisaba
+(LINE (KISZIB_PERSON (KISZIB kiszib3) (PERSON (PN ur-{d}nisaba))))
+
+# zi-ga sza3-bi su-ga
+(LINE
+  (FRAG (FRAG (ZIGA zi-ga) (FRAG (UNKNOWN sza3-bi))) (UNKNOWN su-ga)))
+
+# ba-sa6
+(LINE (PN ba-sa6))
+
+# mu sza-asz-ru{ki} ba-hul
+(LINE
+  (FRAG (YEAR (MU mu) (CITY sza-asz-ru{ki})) (FRAG (UNKNOWN ba-hul))))
+
