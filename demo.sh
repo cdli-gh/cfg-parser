@@ -65,8 +65,17 @@ for file in `find $INPUT`; do
 		# CFG parsing
 		id=`basename $file | sed s/'\..*'//g`
 		out=$dir/$id.psd;
-		echo CFG parsing: $file "=>" $out 1>&2
-		time ($PYTHON $PARSER $file > $out) 1>&2
+		echo -n CFG parsing: $file "=>" $out" " 1>&2
+		if [ -s $out ]; then
+			echo "skipped (file found)" 1>&2
+		else
+			time ($PYTHON $PARSER $file > $out) 1>&2
+			if [ -s $out ]; then
+				echo "ok" 1>&2
+			else
+				echo "failed" 1>&2
+			fi
+		fi
 		echo 1>&2
 
 		# UD export (experimental)
@@ -77,8 +86,17 @@ for file in `find $INPUT`; do
 
 		# file-by-file processing is slow, concatenate to speed up
 		tgt=$dir/$id.conll
-		echo UD conversion: $out "=>" $tgt 1>&2;
-		time (bash -e jaworski2deps.sh $out > $tgt 2>$tgt.log) 1>&2
+		echo -n UD conversion: $out "=>" $tgt" " 1>&2;
+		if [ -s $tgt ]; then
+			echo "skipped (file found)" 1>&2
+		else
+			time (bash -e jaworski2deps.sh $out > $tgt 2>$tgt.log) 1>&2
+			if [ -s $tgt ]; then
+				echo ok 1>&2
+			else 
+				echo failed 1>&2
+			fi;
+		fi;
 		echo 1>&2
 		if [ ! -s $tgt ]; then
 			cat $tgt.log 1>&2;

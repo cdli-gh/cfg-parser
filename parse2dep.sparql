@@ -334,6 +334,9 @@ DELETE {
 			( "PERSON" "nmod") 		# for kiszib3, this is GEN/nmod:of, for mu-kux(DU), this is ERG (!)
 			( "JOB" "appos" )
 			( "UNKNOWN" "dep" )
+			( "SZUNIGIN" "parataxis" )
+			( "SZU_NIGIN" "parataxis" )
+			( "TOTAL" "parataxis" )
 			( "FRAG" "dep" )
 			( "JOBNAME" "appos" )
 			( "NUMBER_PRODUCT_LIST" "GEN" ) 	# total *of* (szunigin ... kasz), tbc.
