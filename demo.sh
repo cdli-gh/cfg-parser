@@ -54,12 +54,18 @@ for file in `find $INPUT`; do
 			mkdir -p $dir ; 
 		fi;
 
-		if echo $file | egrep 'conll[^\.]*$' >&/dev/null; then
-			echo $file': parsing in CoNLL mode' 1>&2
-			PARSER=jaworski4conll.py
+		if echo $file | egrep 'comm.*conll$' >& /dev/null; then
+			echo $file': parsing in CoNLL mode with MTAAC COMM preannotations' 1>&2
+			PARSER="parse_comm.py --ptb"
 		else
-			echo $file': parsing in plain text mode' 1>&2
-			PARSER=jaworski.py
+			if echo $file | egrep 'conll$' >&/dev/null; then
+				echo $file': parsing in CoNLL mode' 1>&2
+				echo '(to enable COMM parser, use a path or file name that contains the string comm)' 1>&2
+				PARSER=jaworski4conll.py
+			else
+				echo $file': parsing in plain text mode' 1>&2
+				PARSER=jaworski.py
+			fi;
 		fi;
 
 		# CFG parsing

@@ -59,7 +59,8 @@ PARSER_CLASS=nltk.parse.IncrementalLeftCornerChartParser						# 11.5 s
 
 ## failed
 # PARSER_CLASS=nltk.parse.ShiftReduceParser 						# lossy; numerous "will never be used" warnings
-# PARSER_CLASS=nltk.parse.RecursiveDescentParser					# ran into infinite loop# PARSER_CLASS=nltk.parse.recursivedescent.RecursiveDescentParser	# interrupted after 17 s
+# PARSER_CLASS=nltk.parse.RecursiveDescentParser					# ran into infinite loop
+# PARSER_CLASS=nltk.parse.recursivedescent.RecursiveDescentParser	# interrupted after 17 s
 
 parser=PARSER_CLASS(grammar)
 

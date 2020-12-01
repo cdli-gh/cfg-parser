@@ -1,0 +1,204 @@
+############################
+# input/comm/P330559.conll #
+############################
+
+#new_text=P330559
+(DOC
+    (FRAG
+      (NUMBER_PRODUCT
+        (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+        (PRODUCT (PRODUCT_NAME (word (N naga)))))
+      (UNKNOWN (word (N a-da-lal3)))
+      (SZUNIGIN
+        (TRANSACTIONS
+          (NUMBER_PRODUCT_LIST
+            (NUMBER_PRODUCT
+              (NUMBERS (NUMBER (COUNT (NU 3) (N sila3))))
+              (PRODUCT (PRODUCT_NAME (COM (N kasz)))))
+            (NUMBER_PRODUCT
+              (NUMBERS (NUMBER (COUNT (NU 2) (N sila3))))
+              (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+            (NUMBER_PRODUCT
+              (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+              (UNIT (word (N szum2))))
+            (NUMBER_PRODUCT
+              (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+              (PRODUCT (PRODUCT_NAME (word (N i3))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT
+                  (PRODUCT_NAME (COM (N kasz)))
+                  (PRODUCT_PARAM (word (V saga)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN x-x-i3-li2))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT
+                  (PRODUCT_NAME (COM (N kasz)))
+                  (PRODUCT_PARAM (word (V saga)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN dingir-ra-bi2))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (COM (N kasz)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN lu2-dingir-ra))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (COM (N kasz)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN ...))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (COM (N kasz)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN {d}utu-ba-ni))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (COM (N kasz)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN szu-{d}ma-mi-tum))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (COM (N kasz)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN gu3-de2-a))))))
+          (TRANSACTION
+            (NUMBER_PRODUCT_LIST
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (COM (N kasz)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N sila3))))
+                (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 5) (N gin2))))
+                (UNIT (word (N szum2))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 3) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N i3)))))
+              (NUMBER_PRODUCT
+                (NUMBERS (NUMBER (COUNT (NU 2) (N gin2))))
+                (PRODUCT (PRODUCT_NAME (word (N naga))))))
+            (AGENT (PERSON (PN (word (PN e2-a-ba-ni)))))))
+        (word (N szunigin))
+        (NUMBER_PRODUCT
+          (NUMBERS (NUMBER (COUNT (NU 1) (NU 5) (N sila3))))
+          (PRODUCT
+            (PRODUCT_NAME (COM (N kasz)))
+            (PRODUCT_PARAM (word (V saga)))))
+        (NUMBER_PRODUCT
+          (NUMBERS (NUMBER (COUNT (NU 2) (NU 7) (N sila3))))
+          (PRODUCT (PRODUCT_NAME (word (N kasz)))))
+        (NUMBER_PRODUCT
+          (NUMBERS (NUMBER (COUNT (NU 4) (NU 1/3) (N sila3))))
+          (PRODUCT (PRODUCT_NAME (word (N ninda)))))
+        (NUMBER_PRODUCT
+          (NUMBERS
+            (NUMBER (COUNT (NU 2/3) (N sila3) (NU 5) (N gin2))))
+          (UNIT (word (N szum2))))
+        (word (N szunigin))
+        (NUMBER_PRODUCT
+          (NUMBERS
+            (NUMBER (COUNT (NU 1/3) (N sila3) (NU 7) (N gin2))))
+          (PRODUCT (PRODUCT_NAME (COM (N i3)))))
+        (NUMBER_PRODUCT
+          (NUMBERS (NUMBER (COUNT (NU 1) (NU 6) (N gin2))))
+          (PRODUCT
+            (PRODUCT_NAME (word (N naga)))
+            (PRODUCT_PARAM (word (N u4))))))
+      (NUMBER (COUNT (NU 2)))
+      (NUMBER (COUNT (NU 6-kam)))
+      (ITI (word (N iti)))
+      (MONTH_NAME (word (MN sze-sag11-ku5)))))

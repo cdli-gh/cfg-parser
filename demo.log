@@ -1,0 +1,232 @@
+create psd/atf
+input/atf/P106438.atf: parsing in plain text mode
+CFG parsing: input/atf/P106438.atf => psd/atf/P106438.psd 
+real	0m1,643s
+user	0m1,484s
+sys	0m0,140s
+ok
+
+UD conversion: psd/atf/P106438.psd => conll/atf/P106438.conll 
+real	0m20,468s
+user	0m1,473s
+sys	0m3,331s
+ok
+
+input/atf/P330559.atf: parsing in plain text mode
+CFG parsing: input/atf/P330559.atf => psd/atf/P330559.psd Traceback (most recent call last):
+  File "jaworski.py", line 134, in <module>
+    parses=list(parser.parse(s))
+  File "/usr/lib/python3.7/site-packages/nltk/parse/chart.py", line 680, in parses
+    for tree in self.trees(edge, tree_class=tree_class, complete=True):
+  File "/usr/lib/python3.7/site-packages/nltk/parse/chart.py", line 698, in trees
+    return iter(self._trees(edge, complete, memo={}, tree_class=tree_class))
+  File "/usr/lib/python3.7/site-packages/nltk/parse/chart.py", line 736, in _trees
+    child_choices = [self._trees(cp, complete, memo, tree_class) for cp in cpl]
+  File "/usr/lib/python3.7/site-packages/nltk/parse/chart.py", line 736, in <listcomp>
+    child_choices = [self._trees(cp, complete, memo, tree_class) for cp in cpl]
+  File "/usr/lib/python3.7/site-packages/nltk/parse/chart.py", line 740, in _trees
+    trees.append(tree_class(lhs, children))
+MemoryError
+
+real	1m1,372s
+user	0m55,937s
+sys	0m3,796s
+ok
+
+UD conversion: psd/atf/P330559.psd => conll/atf/P330559.conll 
+real	0m16,336s
+user	0m2,169s
+sys	0m4,471s
+ok
+
+create psd/comm
+input/comm/P106438.conll: parsing in CoNLL mode with MTAAC COMM preannotations
+CFG parsing: input/comm/P106438.conll => psd/comm/P106438.psd 
+real	0m1,417s
+user	0m1,140s
+sys	0m0,233s
+ok
+
+UD conversion: psd/comm/P106438.psd => conll/comm/P106438.conll 
+real	0m42,504s
+user	0m2,229s
+sys	0m4,538s
+ok
+
+input/comm/P330559.conll: parsing in CoNLL mode with MTAAC COMM preannotations
+CFG parsing: input/comm/P330559.conll => psd/comm/P330559.psd 
+real	0m0,956s
+user	0m0,765s
+sys	0m0,186s
+ok
+
+UD conversion: psd/comm/P330559.psd => conll/comm/P330559.conll 
+real	0m39,886s
+user	0m2,730s
+sys	0m5,021s
+ok
+
+create psd/morph
+input/morph/P106438.conll: parsing in CoNLL mode
+(to enable COMM parser, use a path or file name that contains the string comm)
+CFG parsing: input/morph/P106438.conll => psd/morph/P106438.psd 
+real	2m25,411s
+user	2m19,515s
+sys	0m0,640s
+ok
+
+UD conversion: psd/morph/P106438.psd => conll/morph/P106438.conll 
+real	0m44,161s
+user	0m2,370s
+sys	0m5,971s
+ok
+
+input/morph/P330559.conll: parsing in CoNLL mode
+(to enable COMM parser, use a path or file name that contains the string comm)
+CFG parsing: input/morph/P330559.conll => psd/morph/P330559.psd 
+real	0m56,984s
+user	0m56,000s
+sys	0m0,327s
+ok
+
+UD conversion: psd/morph/P330559.psd => conll/morph/P330559.conll 
+real	0m20,277s
+user	0m2,078s
+sys	0m5,146s
+ok
+
+create psd/plain
+input/plain/P106438.conll: parsing in CoNLL mode
+(to enable COMM parser, use a path or file name that contains the string comm)
+CFG parsing: input/plain/P106438.conll => psd/plain/P106438.psd 
+real	1m15,913s
+user	1m14,311s
+sys	0m0,265s
+ok
+
+UD conversion: psd/plain/P106438.psd => conll/plain/P106438.conll 
+real	0m34,650s
+user	0m2,125s
+sys	0m4,625s
+ok
+
+input/plain/P330559.conll: parsing in CoNLL mode
+(to enable COMM parser, use a path or file name that contains the string comm)
+CFG parsing: input/plain/P330559.conll => psd/plain/P330559.psd 
+real	0m56,914s
+user	0m55,578s
+sys	0m0,296s
+ok
+
+UD conversion: psd/plain/P330559.psd => conll/plain/P330559.conll 
+real	0m19,025s
+user	0m2,075s
+sys	0m5,625s
+ok
+
+create psd/syntax
+input/syntax/P106438.conll: parsing in CoNLL mode
+(to enable COMM parser, use a path or file name that contains the string comm)
+CFG parsing: input/syntax/P106438.conll => psd/syntax/P106438.psd 
+real	1m3,578s
+user	1m2,640s
+sys	0m0,187s
+ok
+
+UD conversion: psd/syntax/P106438.psd => conll/syntax/P106438.conll 
+real	0m21,249s
+user	0m2,001s
+sys	0m4,272s
+failed
+
+02:12:32 INFO  Format2RDF           :: Format2RDF: configurable converter for CoNLL-like formats to RDF/Turtle
+           reads from stdin and writes to stdout
+synopsis: Format2RDF -help
+          Format2RDF FORMAT baseURI Label1 [.. LabelN]
+Note: for practical applications use CoNLLStreamExtractor
+02:12:32 INFO  Format2RDF           :: # created with CoNLL2RDF
+02:12:32 INFO  Format2RDF           ::  CoNLLBracketsWithDefaultURIs http://ignore.me/ WORD PARSE
+02:12:32 INFO  CoNLLRDFFormatter    :: synopsis: CoNLLRDFFormatter [-rdf [COLS]] [-debug] [-grammar] [-semantics] [-conll COLS] [-sparqltsv SPARQL]
+	-rdf  write formatted CoNLL-RDF to stdout (sorted by list of CoNLL COLS, if provided)
+	-conll  write formatted CoNLL to stdout (only specified COLS)
+	-debug     write formatted, color-highlighted full turtle to stderr
+	-grammar   write CoNLL data structures to stdout
+	-semantics write semantic graph to stdout
+	-sparqltsv write TSV generated from SPARQL statement to stdout.
+	           if with -grammar, then skip type assignments
+read TTL from stdin => format CoNLL-RDF or extract and highlight CoNLL (namespace conll:) and semantic (namespace terms:) subgraphs
+if no parameters are supplied, -conllrdf is inferred
+02:12:32 INFO  CoNLLRDFUpdater      :: synopsis: CoNLLRDFUpdater
+read TTL from stdin => update CoNLL-RDF
+ -loglevel <level>      set log level to LEVEL
+ -threads <arg>         use T threads max
+                        default: half of available logical processor cores
+ -lookahead <arg>       cache N further sentences in lookahead graph
+ -lookback <arg>        cache N preceeding sentences in lookback graph
+ -prefixDeduplication   Remove duplicates of TTL-Prefixes
+ -custom                use custom update scripts
+ -model <arg>           to load additional Models into local graph
+ -graphsout <arg>       output directory for the .dot graph files
+                        followed by the IDs of the sentences to be visualized
+                        default: first sentence only
+ -triplesout <arg>      same as graphsout but write N-TRIPLES for text debug
+                        instead.
+ -updates <arg>         followed by SPARQL scripts paired with {iterations/u}
+
+02:12:32 INFO  CoNLLRDFUpdater      :: Falling back to default thread maximum.
+02:12:32 INFO  CoNLLRDFUpdater      :: Executing on 4 processor cores, max.
+02:12:49 ERROR riot                 :: [line: 23, col: 81] Illegal character in IRI (codepoint 0x7C, '|'): <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#CITY[|]...>
+Exception in thread "main" org.apache.jena.riot.RiotException: [line: 23, col: 81] Illegal character in IRI (codepoint 0x7C, '|'): <http://ufal.mff.cuni.cz/conll2009-st/task-description.html#CITY[|]...>
+	at org.apache.jena.riot.system.ErrorHandlerFactory$ErrorHandlerStd.fatal(ErrorHandlerFactory.java:147)
+	at org.apache.jena.riot.lang.LangEngine.raiseException(LangEngine.java:148)
+	at org.apache.jena.riot.lang.LangEngine.nextToken(LangEngine.java:105)
+	at org.apache.jena.riot.lang.LangTurtleBase.predicateObjectItem(LangTurtleBase.java:287)
+	at org.apache.jena.riot.lang.LangTurtleBase.predicateObjectList(LangTurtleBase.java:269)
+	at org.apache.jena.riot.lang.LangTurtleBase.triples(LangTurtleBase.java:250)
+	at org.apache.jena.riot.lang.LangTurtleBase.triplesSameSubject(LangTurtleBase.java:191)
+	at org.apache.jena.riot.lang.LangTurtle.oneTopLevelElement(LangTurtle.java:46)
+	at org.apache.jena.riot.lang.LangTurtleBase.runParser(LangTurtleBase.java:91)
+	at org.apache.jena.riot.lang.LangBase.parse(LangBase.java:41)
+	at org.apache.jena.riot.RDFParserRegistry$ReaderRIOTLang.read(RDFParserRegistry.java:206)
+	at org.apache.jena.riot.RDFParser.read(RDFParser.java:338)
+	at org.apache.jena.riot.RDFParser.parseNotUri(RDFParser.java:324)
+	at org.apache.jena.riot.RDFParser.parse(RDFParser.java:273)
+	at org.apache.jena.riot.RDFParserBuilder.parse(RDFParserBuilder.java:498)
+	at org.apache.jena.riot.RDFDataMgr.parseFromReader(RDFDataMgr.java:880)
+	at org.apache.jena.riot.RDFDataMgr.read(RDFDataMgr.java:298)
+	at org.apache.jena.riot.RDFDataMgr.read(RDFDataMgr.java:283)
+	at org.apache.jena.riot.adapters.RDFReaderRIOT.read(RDFReaderRIOT.java:62)
+	at org.apache.jena.rdf.model.impl.ModelCom.read(ModelCom.java:298)
+	at org.acoli.conll.rdf.CoNLLRDFFormatter.printSparql(CoNLLRDFFormatter.java:556)
+	at org.acoli.conll.rdf.CoNLLRDFFormatter.processSentenceStream(CoNLLRDFFormatter.java:844)
+	at org.acoli.conll.rdf.CoNLLRDFFormatter.main(CoNLLRDFFormatter.java:725)
+
+input/syntax/P330559.conll: parsing in CoNLL mode
+(to enable COMM parser, use a path or file name that contains the string comm)
+CFG parsing: input/syntax/P330559.conll => psd/syntax/P330559.psd 
+real	0m43,246s
+user	0m43,093s
+sys	0m0,124s
+ok
+
+UD conversion: psd/syntax/P330559.psd => conll/syntax/P330559.conll 
+real	0m19,620s
+user	0m1,942s
+sys	0m4,624s
+ok
+
+create psd/text
+input/text/P106438.txt: parsing in plain text mode
+CFG parsing: input/text/P106438.txt => psd/text/P106438.psd 
+real	0m2,133s
+user	0m1,953s
+sys	0m0,171s
+ok
+
+UD conversion: psd/text/P106438.psd => conll/text/P106438.conll 
+real	0m25,262s
+user	0m2,063s
+sys	0m4,226s
+ok
+
+done
