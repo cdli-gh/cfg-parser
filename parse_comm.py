@@ -613,26 +613,37 @@ for file in files:
 			parse=under_next(parse,"S_NUMBER_PRODUCT_LIST","TRANSACTION")
 			parse=under_next(parse,"S_NUMBER_PRODUCT_LIST","NUMBER_PRODUCT_LIST")
 			
-			parse=move_up(parse,"S_NUMBER_PRODUCT_LIST","S_FRAG")
-			parse=move_up(parse,"S_TRANSACTION","S_FRAG")
+			# move FRAG up to narrow down consistently recognized elements
+			# (moving FRAG up allows to connect NPLs with following TRANSACTIONS, however, this will be incorrect if the FRAG represents the original transition)
+			parse=move_up(parse,"S_FRAG","S_NUMBER_PRODUCT_LIST")
+			parse=move_up(parse,"S_FRAG","S_TRANSACTION")
 			parse=flat_tree(parse)
 
 			parse=under_next(parse,"S_NUMBER_PRODUCT_LIST","S_TRANSACTION")
 			parse=under_next(parse,"S_NUMBER_PRODUCT","S_TRANSACTION")
 			parse=under_next(parse,"S_NUMBER_PRODUCT","S_NUMBER_PRODUCT_LIST")			
 			parse=move_up(parse,"S_TRANSACTION","S_NUMBER_PRODUCT_LIST")
-			
-			# parse=move_up(parse,"S_TRANSACTION","S_SZUNIGIN")
+
+			parse=move_up(parse,"S_TRANSACTION","S_EPILOG")
 			# parse=flat_tree(parse)
 			# parse=move_up(parse,"S_TRANSACTION","S_FRAG")
 			parse=flat_tree(parse)
-			parse=move_up(parse,"S_FRAG","S_SZUNIGIN")	# can only happen if a fragment precedes a SZUNIGIN, but that must be first element
+			parse=move_up(parse,"S_FRAG","S_EPILOG")	# can only happen if a fragment precedes a EPILOG, but that must be first element
 			parse=rename_nodes(parse, { 
+				# constituents marked for being initial
 				"S_TRANSACTION":"TRANSACTIONS", 
 				"S_NUMBER_PRODUCT_LIST":"NUMBER_PRODUCT_LIST",
 				"S_FRAG":"FRAG",
-				"S_SZUNIGIN":"SZUNIGIN"
+				"S_EPILOG":"EPILOG",
+				# simplify CFG parse
+				"NUMBERS":"NUMBER",	
+				"DATED_TRANSACTION":"TRANSACTION"
 			})
+			
+			parse=under_next(parse,"NUMBER","NUMBER_PRODUCT")
+			parse=under_next(parse,"NUMBER_PRODUCT_LIST","NUMBER_PRODUCT_LIST")
+			parse=flat_tree(parse)
+			
 			parse=abandon_nodes(parse,["START"],remove_dependents=True)
 			parse=flat_tree(parse)
 		
