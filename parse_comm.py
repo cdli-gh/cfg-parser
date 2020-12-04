@@ -5,7 +5,10 @@ import warnings
 import os
 import sys
 import argparse
+import signal 
+import resource 
 from pprint import pprint
+from contextlib import contextmanager
 
 ########
 # args #
@@ -15,6 +18,9 @@ debug_files=[
 	'input/comm/P106438.conll',
 	'input/comm/P330559.conll'
 ]	
+
+# 1 minute per sentence [actual transaction sequences should be short, so this most likely detects other kinds of prose]
+time_limit=60
 
 parser = argparse.ArgumentParser(description='parse transactions from Ur-III admin texts, using pre-annotations for POS, MORPH and COMM(o[d]dities)\n'+
 	"We expect the following tab structure: WORD SEGM POS MORPH CODE CHK ...\n"+
@@ -31,6 +37,7 @@ parser.add_argument("--debug", help="write base grammar and original text, entai
 parser.add_argument("--conll", help="if --debug, --ptb, or --rawDoc: return CoNLL output in addition to PTB output", action="store_true")				
 parser.add_argument("--ptb", help="return a PTB parse instead of the default (CoNLL) output. This is informative only and lossy, to enable CoNLL output in addition to --ptb, use --conll", action="store_true")
 parser.add_argument("--rawDoc", help="for debugging: return the raw document parse as produced by parse_doc.cfg, entails --ptb",action="store_true")
+parser.add_argument("--timeLimit", type=int, help="set a time limit for parsing *one sentence* (in seconds), defaults to "+str(time_limit), default=time_limit)
 
 args = parser.parse_args()
 if args.debug:
@@ -41,11 +48,22 @@ if args.rawDoc:
 files=args.files
 if(len(files)==0):
 	files=debug_files
-
+	
 
 #################
 # aux functions #
 #################
+
+@contextmanager
+def time_limit(seconds):
+    def signal_handler(signum, frame):
+        raise TimeoutError("Timeout")
+    signal.signal(signal.SIGALRM, signal_handler)
+    signal.alarm(seconds)
+    try:
+        yield
+    finally:
+        signal.alarm(0)
 
 def get_missing_words(grammar, tokens):
 	"""
@@ -390,7 +408,6 @@ docparsers={} # created on demand
 annotations=["WORD","SEGM","POS","MORPH","CODE","CHK"]
 
 for file in files:
-
 	print("##"+re.sub(r".","#",file)+"##")
 	print("#",file,"#")
 	print("##"+re.sub(r".","#",file)+"##")
@@ -528,18 +545,28 @@ for file in files:
 			#############
 			# CFG parse #
 			#############
-			
+
 			parse=None
-			for PARSER in PARSERS:
-				if(parse==None):
-					if(not PARSER in parsers or len(grammar_additions) > 0):
-						parsers[PARSER]=init_parser(PARSER, grammar)
-					parser=parsers[PARSER]
-#					parser.grammar()._start = nltk.grammar.Nonterminal("PARSE")
-					
-					
-					# print(parser_in)
-					parse=parser.parse_one(parser_in)
+
+			# implement time limit
+			# fallback: return a FRAG node plus a lexical lookup for all the elements
+			try:
+			
+				with time_limit(args.timeLimit):				
+					for PARSER in PARSERS:
+						if(parse==None):
+							if(not PARSER in parsers or len(grammar_additions) > 0):
+								parsers[PARSER]=init_parser(PARSER, grammar)
+							parser=parsers[PARSER]
+		#					parser.grammar()._start = nltk.grammar.Nonterminal("PARSE")
+							
+							
+							# print(parser_in)
+							parse=parser.parse_one(parser_in)
+						
+			except TimeoutError as e:
+				print("#",e,"during transaction-level parsing")
+
 			if(parse==None):
 				parse="(FRAG\n"
 				for w in parser_in:
