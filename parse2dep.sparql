@@ -17,8 +17,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 # AGENT	->	PERSON
 # AGENT	->	GIRI3_PERSON
 # AGENT	->	MUDU_PERSON
-# COPY	->	GABARI 
-# DATE	->	DAY 
+# COPY	->	GABARI
+# DATE	->	DAY
 # DATE	->	MONTH
 INSERT {
 	?a terms:HEAD ?b
@@ -28,7 +28,7 @@ INSERT {
 };
 
 # numbers dependents of binary nodes are never head
-# NUMBER_PRODUCT	->	NUMBERS PRODUCT 
+# NUMBER_PRODUCT	->	NUMBERS PRODUCT
 # NUMBER_PRODUCT	->	NUMBERS UNIT
 INSERT {
 	?phrase terms:HEAD ?nonNumber
@@ -42,8 +42,8 @@ INSERT {
 	MINUS { ?phrase (^powla:hasParent) ?a, ?b, ?c. FILTER(?a != ?b) FILTER(?a != ?c) FILTER(?b != ?c) }
 };
 
-# head of NUMBER_PRODUCT is the first product 
-# NUMBER_PRODUCT	->	NUMBERS UNIT PRODUCT 
+# head of NUMBER_PRODUCT is the first product
+# NUMBER_PRODUCT	->	NUMBERS UNIT PRODUCT
 # NUMBER_PRODUCT	->	NUMBERS PRODUCT UNIT
 INSERT {
 	?phrase terms:HEAD ?product
@@ -55,7 +55,7 @@ INSERT {
 	?product a conll:PRODUCT.
 	FILTER(?tmp0!=?product) }
 };
-	
+
 # head is the verb
 # DATED_TRANSACTION	->	TRANSACTION [RECEIVED]
 # TRANSACTION	->	NUMBER_PRODUCT_LIST DEAD LOCATION PERSON [RECEIVED]
@@ -122,39 +122,39 @@ INSERT {
 # head is the first child (= default)
 # GIRI3_PERSON	->	GIRI3 PERSON
 # KISZIB_PERSON	->	KISZIB PERSON
-# MUDU_PERSON	->	MUDU PERSON 
-# COPY	->	GABARI KISZIB_PERSON 
-# DATE	->	DAY MONTH YEAR 
-# DATE	->	MONTH YEAR 
-# DATE	->	DAY MONTH 
+# MUDU_PERSON	->	MUDU PERSON
+# COPY	->	GABARI KISZIB_PERSON
+# DATE	->	DAY MONTH YEAR
+# DATE	->	MONTH YEAR
+# DATE	->	DAY MONTH
 # DATED_TRANSACTION	->	[TRANSACTION] DATE
 # DAY	->	U4 NUMBERS
-# EPILOG	->	TRANSACTION SUMMARY 
-# EPILOG	->	DATED_TRANSACTION SUMMARY 
-# EPILOG	->	TRANSACTION NUMBERS 
+# EPILOG	->	TRANSACTION SUMMARY
+# EPILOG	->	DATED_TRANSACTION SUMMARY
+# EPILOG	->	TRANSACTION NUMBERS
 # EPILOG	->	DATED_TRANSACTION NUMBERS
-# FRAG	->	UNKNOWN 
+# FRAG	->	UNKNOWN
 # FRAG	->	FRAG UNKNOWN
-# GOD	->	GOD CITY 
+# GOD	->	GOD CITY
 # GOD	->	GOD NATIONALITY
-# JOB	->	JOB GOD 
+# JOB	->	JOB GOD
 # JOB	->	JOB CITY
 # LOCATION	->	KI CITY
 # NUMBER_PRODUCT_LIST	->	NUMBER_PRODUCT_LIST NUMBER_PRODUCT
 # NUMBERS	->	NUMBERS NUMBER
 # NUMBERS	->	NUMBERS MINUS NUMBER
-# PERSON	->	PN JOB 
-# PERSON	->	PERSON NATIONALITY 
+# PERSON	->	PN JOB
+# PERSON	->	PERSON NATIONALITY
 # PERSON	->	PERSON FILIATION PERSON
 # PERSON	->	PERSON CONJ PERSON
 # PERSON_maszkim	->	PERSON MASZKIM
 # PRODUCT	->	PRODUCT PRODUCT_PARAM
 # PRODUCT	->	PRODUCT PRODUCT_NAME
-# PURPOSE	->	NOUN GOD 
+# PURPOSE	->	NOUN GOD
 # PURPOSE	->	NOUN GOD CITY
 # PURPOSE	->	GOD CITY
-# SUMMARY	->	SUMMARY SZU_NIGIN 
-# SUMMARY	->	SUMMARY COPY 
+# SUMMARY	->	SUMMARY SZU_NIGIN
+# SUMMARY	->	SUMMARY COPY
 # SUMMARY	->	SUMMARY DATE
 # SZU_NIGIN	->	SZUNIGIN NUMBER_PRODUCT_LIST
 # TRANSACTION	->	NUMBER_PRODUCT_LIST AGENT
@@ -232,7 +232,7 @@ DELETE {
 	MINUS { ?d conll:HEAD+ ?tmp2. ?tmp2 conll:HEAD+ ?t. MINUS { ?tmp2 conll:EDGE "TRANSACTION" }}
 	MINUS { ?date nif:nextWord+ ?tmp. ?tmp conll:HEAD* ?d. MINUS { ?tmp conll:HEAD* ?date }}
 };
-	
+
 # DATED_TRANSACTION -> TRANSACTION
 DELETE {
 	?d conll:EDGE "DATED_TRANSACTION"
@@ -252,7 +252,7 @@ DELETE {
 	?unit conll:EDGE "UNIT"; conll:HEAD ?h.
 	?num nif:nextWord+ ?unit.
 	?unit nif:nextWord ?h.
-};	
+};
 
 #
 # map EDGE labels from semantic roles to CDLI labels
@@ -270,7 +270,7 @@ DELETE {
 # clausal arguments (in year names only -- we have no idea how to disambiguate this, must be done via morphology
 DELETE {
 	?d conll:EDGE ?old
-} INSERT { 
+} INSERT {
 	?d conll:EDGE "dep"
 } WHERE {
 	{
@@ -282,12 +282,13 @@ DELETE {
 # independent of position relative to head
 DELETE {
 	?d conll:EDGE ?old
-} INSERT { 
+} INSERT {
 	?d conll:EDGE ?new
-} WHERE { 
+} WHERE {
 	?d conll:EDGE ?old.
       VALUES (?old ?new) {
             ( "NUMBERS" "nummod" )
+						( "NUMBER" "nummod" )
 			( "DATE" "date" )
 			( "YEAR" "LOC" )
 			( "MONTH" "LOC" )
@@ -304,9 +305,9 @@ DELETE {
 # premodifiers
 DELETE {
 	?d conll:EDGE ?old
-} INSERT { 
+} INSERT {
 	?d conll:EDGE ?new
-} WHERE { 
+} WHERE {
 	?d conll:EDGE ?old.
 	?d conll:HEAD/(^nif:nextWord)+ ?d
       VALUES (?old ?new) {
@@ -318,9 +319,9 @@ DELETE {
 # postmodifiers
 DELETE {
 	?d conll:EDGE ?old
-} INSERT { 
+} INSERT {
 	?d conll:EDGE ?new
-} WHERE { 
+} WHERE {
 	?d conll:EDGE ?old.
 	?d conll:HEAD/(nif:nextWord)+ ?d
       VALUES (?old ?new) {
@@ -331,7 +332,8 @@ DELETE {
 			( "TRANSACTION" "parataxis") # not for the first (= root node, no head)
 			( "NUMBER" "nummod")	# only if head is number, otherwise, this would be NUMBERS
 			( "MINUS" "acl") 		# within numeral phrases, actually sentential
-			( "PERSON" "nmod") 		# for kiszib3, this is GEN/nmod:of, for mu-kux(DU), this is ERG (!)
+			( "PERSON" "appos") 		# for kiszib3, this is GEN/nmod:of, for mu-kux(DU), this is ERG (!)
+			( "FILIATION" "appos")  # dumu PERSON
 			( "JOB" "appos" )
 			( "UNKNOWN" "dep" )
 			( "SZUNIGIN" "parataxis" )
@@ -367,7 +369,7 @@ DELETE {
 	?la nif:nextWord+ ?num.
 };
 
-# create conll:ID 
+# create conll:ID
 INSERT {
 	?w conll:ID ?id
 } WHERE {
