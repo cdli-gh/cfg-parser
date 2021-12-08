@@ -345,6 +345,8 @@ DELETE {
 			("EPILOG" "parataxis")
 			("MU" "LOC") # year
 			("NATIONALITY" "GEN")
+			("MONTH_NAME" "LOC")
+			("BALA" "LOC") # bala/N.L1
 			( "JOB" "appos" )
 			( "UNKNOWN" "dep" )
 			( "KI" "LOC" )
