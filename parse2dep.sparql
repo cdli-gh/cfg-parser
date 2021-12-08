@@ -327,6 +327,7 @@ DELETE {
       VALUES (?old ?new) {
             ( "UNIT" "appos" )
 			( "PRODUCT_NAME" "appos" )
+			( "PRODUCT" "appos" )
 			( "CLAUSE" "acl" )			# to be confirmed, for year names
 			( "NUMBER_PRODUCT" "list") 	# for non-first NUMBER_PRODUCTS only; indeed, the first element should be a NUMBER_PRODUCT_LIST
 			( "TRANSACTION" "parataxis") # not for the first (= root node, no head)
