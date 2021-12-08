@@ -290,9 +290,11 @@ DELETE {
             ( "NUMBERS" "nummod" )
 						( "NUMBER" "nummod" )
 			( "DATE" "date" )
+			( "PURPOSE" "DAT")
 			( "YEAR" "LOC" )
 			( "DEAD" "amod")
 			( "MONTH" "LOC" )
+			( "ITI" "LOC")
 			( "AGENT" "agent" )
 			( "SUMMARY" "total")
 			( "GAP" "dep")
@@ -313,6 +315,7 @@ DELETE {
 	?d conll:HEAD/(^nif:nextWord)+ ?d
       VALUES (?old ?new) {
             ( "UNIT" "nmod" )
+						( "PRODUCT_PARAM" "nmod")
 			( "ITI" "nmod" )
 		}
 };
@@ -336,9 +339,16 @@ DELETE {
 			( "NUMBER" "nummod")	# only if head is number, otherwise, this would be NUMBERS
 			( "MINUS" "acl") 		# within numeral phrases, actually sentential
 			( "PERSON" "appos") 		# for kiszib3, this is GEN/nmod:of, for mu-kux(DU), this is ERG (!)
+			( "PN" "appos")
 			( "FILIATION" "appos")  # dumu PERSON
+			( "FILIATION_EXP" "appos")
+			("EPILOG" "parataxis")
+			("MU" "LOC") # year
+			("NATIONALITY" "GEN")
 			( "JOB" "appos" )
 			( "UNKNOWN" "dep" )
+			( "KI" "LOC" )
+			( "TRANSACTIONS" "parataxis" )
 			( "SZUNIGIN" "parataxis" )
 			( "SZU_NIGIN" "parataxis" )
 			( "TOTAL" "parataxis" )
